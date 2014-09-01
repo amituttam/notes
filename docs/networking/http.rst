@@ -13,8 +13,25 @@ Make sure the permissions of the files in the directory are accessible
 to the `other` group. Or change the permissions to the user that `nginx`
 runs as (for debian it's `www-data`).
 
-Setting up Baic Auth
-^^^^^^^^^^^^^^^^^^^^
+Setting up Basic Auth
+^^^^^^^^^^^^^^^^^^^^^
+
+1. Install **apache2-utils** to get **htpasswd**
+2. Create an **.htpasswd** file in the web root. Make sure the
+   permissions are *644*.
+
+.. code-block:: html
+
+    sudo htpasswd -c /usr/share/nginx/html/.htpasswd amit
+
+3. Update */etc/nginx/sites-available/default* in the location */* and
+   reload *nginx*:
+
+.. code-block:: html
+
+    # Basic auth
+    auth_basic "Restricted";
+    auth_basic_user_file /etc/nginx/.htpasswd;
 
 Others
 ------
