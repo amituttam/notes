@@ -22,9 +22,7 @@ To capture `localhost` traffic:
     sudo tcpdump -A -v --number -i lo tcp port http
 
 * `-A` is used to decode protocol in `ASCII`.
-* `-v` is used for verbose mode. This allows us to see `tcp` communication
-details (flags, sequence numbers, etc).
+* `-v` is used for verbose mode. This allows us to see `tcp` communication details (flags, sequence numbers, etc).
 * `--number` denomitate the packets
 * `-i lo` use local loopback interface
-* `tcp port http` the filter specifying protocol and port to use for
-capture.
+* `tcp port http` the filter specifying protocol and port to use for capture.
