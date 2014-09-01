@@ -26,3 +26,9 @@ To capture `localhost` traffic:
 * `--number` denomitate the packets
 * `-i lo` use local loopback interface
 * `tcp port http` the filter specifying protocol and port to use for capture.
+
+Use `-l` for line buffering to see data while capturing it to a file.
+
+.. code-block:: html
+
+    sudo tcpdump -l -A -v --number -i lo tcp port http | tee /tmp/capture
