@@ -3,6 +3,33 @@ HTTP
 
 Hypertext Transfer Protocol
 
+Methods
+-------
+
+GET
+^^^
+
+Fetch a resource. Example in python:
+
+.. code-block:: python
+
+    def get():
+    # Simple GET of index.html
+    headers = { 'User-Agent': 'http_client/0.1',
+                'Accept': '*/*',
+                'Accept-Encoding': 'gzip, deflate' }
+    http_conn = http.client.HTTPConnection("localhost")
+    http_conn.set_debuglevel(1)
+    http_conn.request("GET", "/", headers=headers)
+
+    ## Response
+    resp = http_conn.getresponse()
+    print()
+    print("Status:", resp.status, resp.reason)
+
+    ## Cleanup
+    http_conn.close()
+
 Authorization
 -------------
 
