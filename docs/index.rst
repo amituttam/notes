@@ -6,6 +6,7 @@ the years. They are categorized into the following sections:
 
 * :ref:`networking`
 * :ref:`forensics`
+* :ref:`debian`
 
 .. _networking:
 
@@ -26,3 +27,14 @@ Forensics
    :maxdepth: 3
 
    forensics/index
+
+.. _debian:
+
+Debian
+------
+
+.. toctree::
+   :maxdepth: 3
+
+   debian/index
+
