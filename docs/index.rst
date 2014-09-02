@@ -8,7 +8,6 @@ the years. They are categorized into the following sections:
 * :ref:`forensics`
 
 .. _networking:
-.. _forensics:
 
 Networking
 ----------
@@ -17,6 +16,8 @@ Networking
    :maxdepth: 3
 
    networking/index
+
+.. _forensics:
 
 Forensics
 ---------
