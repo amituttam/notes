@@ -3,6 +3,57 @@ HTTP
 
 Hypertext Transfer Protocol
 
+Basic format for requests/responses:
+
+.. code-block:: html
+
+    message = <start-line>
+              *(<message-header>)
+              CRLF
+              [<message-body>]
+     
+    <start-line> = Request-Line | Status-Line 
+    <message-header> = Field-Name ':' Field-Value
+
+*Request* format:
+
+.. code-block:: html
+
+    Request-Line = Method SP URI SP HTTP-Version CRLF
+    Method = "OPTIONS"
+           | "HEAD"  
+           | "GET"  
+           | "POST"  
+           | "PUT"  
+           | "DELETE"  
+           | "TRACE"
+
+.. code-block:: html
+
+    GET /articles/http-basics HTTP/1.1
+    Host: www.articles.com
+    Connection: keep-alive
+    Cache-Control: no-cache
+    Pragma: no-cache
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+
+*Response* format:
+
+.. code-block:: html
+
+    Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
+
+.. code-block:: html
+
+    HTTP/1.1 200 OK
+    Server: nginx/1.6.1
+    Date: Tue, 02 Sep 2014 04:38:20 GMT
+    Content-Type: text/html
+    Last-Modified: Tue, 05 Aug 2014 11:18:35 GMT
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Content-Encoding: gzip
+
 Methods
 -------
 
@@ -30,8 +81,8 @@ Fetch a resource. Example in python:
     ## Cleanup
     http_conn.close()
 
-Authorization
--------------
+Authentication
+--------------
 
 Basic Auth
 ^^^^^^^^^^
@@ -41,13 +92,14 @@ cookies, session identifier or login pages. It uses standard HTTP
 *Authorization* header to send login credentials. Thus, no handshakes
 need to be done.
 
-Typically used over *https* since encoding is done in *base64*.
+Typically used over *https* since encoding is done in *base64*
+(passwords sent as plain text). Passwords can be easily decoded.
 
 On *Server*, status code 401 is sent back and the following header is used:
 
 .. code-block:: html
 
-   WWW-Authenticate: Basic realm="Restricted"
+    WWW-Authenticate: Basic realm="Restricted"
 
 On *Client*, the *Authorization* header is used with the following
 format:
@@ -55,6 +107,40 @@ format:
 .. code-block:: html
 
     Authorization: Basic base64("username:password")
+
+Example in python:
+
+.. code-block:: python
+
+    def get_auth():
+    # GET with authorization of index.html
+    authstring = base64.b64encode(("%s:%s" % ("amit","amit")).encode())
+    authheader = "Basic %s" % (authstring.decode())
+    print("Authorization: %s" % authheader)
+
+    headers = { 'User-Agent': 'http_client/0.1',
+                'Accept': '*/*',
+                'Authorization': authheader,
+                'Accept-Encoding': 'gzip, deflate' }
+    http_conn = http.client.HTTPConnection("localhost")
+    http_conn.set_debuglevel(1)
+    http_conn.request("GET", "/", headers=headers)
+
+    ## Response
+    resp = http_conn.getresponse()
+    print()
+    print("Status:", resp.status, resp.reason)
+
+    ## Cleanup
+    http_conn.close()
+
+
+Digest
+^^^^^^
+
+Basically uses MD5 of password and *nonce* value to prevent replay
+attacks. Now, pretty much replaced by HMAC (keyed-hash message
+authentication code).
 
 nginx `engineX`
 ---------------
@@ -86,6 +172,28 @@ Setting up Basic Auth
     # Basic auth
     auth_basic "Restricted";
     auth_basic_user_file /etc/nginx/.htpasswd;
+
+Setting up Digest Auth
+^^^^^^^^^^^^^^^^^^^^^^
+
+1. **apache2-utils** includes **htdigest** (similar to *htpasswd*) to
+   generate digest key.
+2. Create an **.htdigest** file in the web root. Make sure the
+   permissions are *644*. Note that the *realm* here is *"Access
+   Restricted"*.
+
+.. code-block:: html
+
+    sudo htdigest -c /usr/share/nginx/html/.htdigest "Access Restricted" amit
+
+3. Update */etc/nginx/sites-available/default* in the location */* and
+   reload *nginx*:
+
+.. code-block:: html
+
+    # Digest auth
+    auth_digest "Access Restricted";    # Realm
+    auth_digest_user_file /usr/share/nginx/html/.htdigest;
 
 Others
 ------
