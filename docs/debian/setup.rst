@@ -20,6 +20,7 @@ Basic Setup
 4. Add the following lines using *visudo*:
 
 .. code-block:: shell
+
     # User privilege specification
     logicube        ALL=(ALL:ALL) ALL
 
@@ -30,20 +31,23 @@ systemd
 2. The directory should be owned by *systemd-journal*.
 
 .. code-block:: shell
+
     $ sudo chgrp systemd-journal /var/log/journal
 
 3. Fix the permissions for this group so that any user that is a member
    of *systemd-journal* should be able to access it.
 
 .. code-block:: shell
+
     $ sudo chmod g+rwx /var/log/journal
 
 4. Add the user to the *systemd-journal* group:
 
 .. code-block:: shell
+
     $ sudo usermod -a -G systemd-journal logicube
 
-5. Reboot the system using *systemct reboot*.
+5. Reboot the system using *systemctl reboot*.
 
 Enlightenment
 -------------
