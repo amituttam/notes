@@ -28,6 +28,10 @@ systemd
 
 1. Create */var/log/journal* where *systemd* can store persistent journals.
 2. The directory should be owned by *systemd-journal*.
+
+.. code-block:: shell
+    $ sudo chgrp systemd-journal /var/log/journal
+
 3. Fix the permissions for this group so that any user that is a member
    of *systemd-journal* should be able to access it.
 
