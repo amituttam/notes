@@ -73,6 +73,7 @@ Enlightenment
 .. code-block:: shell
 
     $ sudo aptitude install -R e17 fonts-droid librsvg2-common
+
 3. Install a small display manager *CDM* (**Doesn't work**)
    https://wiki.archlinux.org/index.php/CDM.
 
