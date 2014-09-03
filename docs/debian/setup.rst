@@ -68,7 +68,12 @@ Enlightenment
 
     $ sudo aptitude install -R xserver-xorg xserver-xorg-core xinit xinput xserver-xorg-video-intel xserver-xorg-input-evdev x11-utils
 
-2. Install a small display manager *CDM*
+2. Install *e17*:
+
+.. code-block:: shell
+
+    $ sudo aptitude install -R e17 fonts-droid librsvg2-common
+3. Install a small display manager *CDM* (**Doesn't work**)
    https://wiki.archlinux.org/index.php/CDM.
 
    #. Install *dialog* package as a dependency. 
@@ -78,8 +83,5 @@ Enlightenment
    #. ``sudo cp /usr/share/doc/cdm/profile.sh /etc/profile.d/zzz-cdm.sh``
    #. ``chmod +x /etc/profile.d/zzz-cdm.sh``
 
-3. Install *e17*:
-
-.. code-block:: shell
-
-    $ sudo aptitude install -R e17 fonts-droid librsvg2-common
+4. Install *nodm*. Edit */etc/default/nodm* and set *NODM_ENABLED* to
+   *true*. Finally, change *NODM_USER* to *logicube*. Reboot the system.
