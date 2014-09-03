@@ -87,3 +87,33 @@ Enlightenment
 
 4. Install *nodm*. Edit */etc/default/nodm* and set *NODM_ENABLED* to
    *true*. Finally, change *NODM_USER* to *logicube*. Reboot the system.
+
+Applications
+------------
+
+1. Install *chromium* with recommended packages.
+2. Install *rxvt-unicode-256color*.
+3. Create *.Xdefaults* with the following settings:
+
+.. code-block:: shell
+
+    URxvt.font: xft:Droid Sans Mono:style=Regular:pixelsize=15
+    !URxvt*letterSpace              : -1
+
+    ! make a scrollbar that's nearly black
+    URxvt*scrollBar:                               false
+    URxvt*scrollBar_floating:                      true
+    URxvt*scrollBar_right:                         false
+    URxvt*scrollColor:                             #202020
+    URxvt*urllauncher:                             chromium
+
+    ! matcher.button # 3 is a right-click
+    URxvt*matcher.button:                          3
+    URxvt*saveLines:                               8192
+    URxvt.perl-ext-common:                         default,matcher
+
+    ! Theme
+    URxvt*background: #000000
+    URxvt*foreground: #ffffff
+
+4. Install *vim* and *vim-gtk* with recommended packages.
