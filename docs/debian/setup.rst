@@ -66,7 +66,7 @@ Enlightenment
 
 .. code-block:: shell
 
-    $ sudo aptitude install -R xserver-xorg-core xinit xinput xserver-xorg-video-intel xserver-xorg-input-evdev x11-utils
+    $ sudo aptitude install -R xserver-xorg xserver-xorg-core xinit xinput xserver-xorg-video-intel xserver-xorg-input-evdev x11-utils
 
 2. Install a small display manager *CDM*
    https://wiki.archlinux.org/index.php/CDM.
