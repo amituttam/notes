@@ -152,7 +152,8 @@ A basic digest authentication session goes as follows:
    * *Digest algorithm* - Usually *MD5*.
    * *realm* - The access realm. A string identifying the realm of the server.
    * *qop* - Stands for quality of protection (e.g. *auth*)
-   * *nonce* - Server generated hash.
+   * *nonce* - Server generated hash, issued only once per *401*
+     response. Server should also have a timeout for the nonce values.
 
 #. Client then receives the 401 status error and parses the header so it
    knows how to authenticate itself. It responds with the usual header
@@ -164,13 +165,108 @@ A basic digest authentication session goes as follows:
    * *uri* - Sends the path to the resource it is requesting.
    * *algorithm* - The algorithm the client used to compute the hashes.
    * *qop*
-   * *nc* - counter for number of requests.
-   * *cnonce* - client generated nonce.
+   * *nc* - hexadecimal counter for number of requests.
+   * *cnonce* - client generated nonce, always is generated per request.
    * *response* - Computed hash of ``md5(HA1:nonce:nc:cnonce:qop:HA2)``.
      * HA1 = ``md5(username:realm:password)``
      * HA2 = ``md5(<request method.:uri)``
 
    Notice how the client does not send the password in plain text.
+
+#. Server computes hash and compares to client's hash and if it matches
+   sends back *OK* with content. Note that *rspauth* sent back by server
+   is a mutual authentication proving to client it knows its secret.
+
+**Example HTTP Capture:**
+
+.. code-block:: shell
+
+    C:
+    GET /files/ HTTP/1.1
+    Host: localhost
+    User-Agent: http_client/0.1
+    Accept-Encoding: gzip, deflate
+    Accept: */*
+
+    S:
+    HTTP/1.1 401 Unauthorized
+    Server: nginx/1.6.1
+    Date: Sat, 06 Sep 2014 02:09:24 GMT
+    Content-Type: text/html
+    Content-Length: 194
+    Connection: keep-alive
+    WWW-Authenticate: Digest algorithm="MD5", qop="auth", realm="Access
+    Restricted", nonce="2a27b9b6540a6cd4"
+
+    C:
+    GET /files/ HTTP/1.1
+    Host: localhost
+    User-Agent: http_client/0.1
+    Accept-Encoding: gzip, deflate
+    Accept: */*
+    Authorization: Digest username="amit", realm="Access Restricted",
+    nonce="2a27b9b6540a6cd4", uri="/files/",
+    response="421974c0c2805413b0d4187b9b143ecb", algorithm="MD5",
+    qop="auth", nc=00000001, cnonce="e08190d5"
+
+    S:
+    .HTTP/1.1 200 OK
+    Server: nginx/1.6.1
+    Date: Sat, 06 Sep 2014 02:09:24 GMT
+    Content-Type: text/html
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Authentication-Info: qop="auth", rspauth="33fea6914ddcc2a25b03aaef5d6b478b", cnonce="e08190d5", nc=00000001..
+    Content-Encoding: gzip
+
+**Example Python Code:**
+
+.. code-block:: python
+
+    def get_auth_digest():
+        resp = get()
+
+        # Get dictionary of headers
+        headers = resp.getheader('WWW-Authenticate')
+        h_list = [h.strip(' ') for h in headers.split(',')]
+        #h_tuple = re.findall("(?P<name>.*?)=(?P<value>.*?)(?:,\s)", headers) 
+        h_tuple = [tuple(h.split('=')) for h in h_list]
+        f = lambda x: x.strip('"')
+        h = {k:f(v) for k,v in h_tuple}
+        print(h)
+
+        # HA1 = md5(username:realm:password)
+        ha1_str = "%s:%s:%s" % ("amit",h['realm'],"amit")
+        ha1 = hashlib.md5(ha1_str.encode()).hexdigest()
+        print("ha1:",ha1)
+
+        # HA2 = md5(GET:uri) i.e. md5(GET:/files/)
+        ha2_str = "%s:%s" % ('GET',path)
+        ha2 = hashlib.md5(ha2_str.encode()).hexdigest()
+        print("ha2:",ha2)
+
+        # Generate cnonce
+        cnonce = hashlib.sha1(str(random.random()).encode()).hexdigest()[:8]
+        print("cnonce:",cnonce)
+
+        # Generate response = md5(HA1:nonce:00000001:cnonce:qop:HA2)
+        resp_str = "%s:%s:%s:%s:%s:%s" % (ha1,h['nonce'],"00000001",cnonce,h['qop'],ha2)
+        resp_hash = hashlib.md5(resp_str.encode()).hexdigest()
+        print("resp_hash:",resp_hash)
+
+        # Do another get
+        authheader = 'Digest username="%s", realm="%s", nonce="%s", ' \
+                     'uri="%s", response="%s", algorithm="%s", qop="%s", nc=00000001, ' \
+                     'cnonce="%s"' \
+                     % ("amit", h['realm'], h['nonce'], path, resp_hash, h['Digest algorithm'], h['qop'], cnonce)
+        print(authheader)
+        headers = { 'User-Agent': 'http_client/0.1',
+                    'Accept': '*/*',
+                    'Accept-Encoding': 'gzip, deflate',
+                    'Authorization': authheader
+                  }
+        get(headers)
+
 
 nginx `engineX`
 ---------------
