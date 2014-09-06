@@ -168,6 +168,7 @@ A basic digest authentication session goes as follows:
    * *nc* - hexadecimal counter for number of requests.
    * *cnonce* - client generated nonce, always is generated per request.
    * *response* - Computed hash of ``md5(HA1:nonce:nc:cnonce:qop:HA2)``.
+
      * HA1 = ``md5(username:realm:password)``
      * HA2 = ``md5(<request method.:uri)``
 
