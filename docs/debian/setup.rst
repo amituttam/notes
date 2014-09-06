@@ -68,7 +68,13 @@ Enlightenment
 
     $ sudo aptitude install -R xserver-xorg xserver-xorg-core xinit xinput xserver-xorg-video-intel xserver-xorg-input-evdev x11-utils
 
-2. Install a small display manager *CDM*
+2. Install *e17*:
+
+.. code-block:: shell
+
+    $ sudo aptitude install -R e17 fonts-droid librsvg2-common
+
+3. Install a small display manager *CDM*
    https://wiki.archlinux.org/index.php/CDM.
 
    #. Install *dialog* package as a dependency. 
@@ -77,9 +83,37 @@ Enlightenment
    #. Run *sudo ./install.sh*.
    #. ``sudo cp /usr/share/doc/cdm/profile.sh /etc/profile.d/zzz-cdm.sh``
    #. ``chmod +x /etc/profile.d/zzz-cdm.sh``
+   #. This procedure **doesn't work**, CDM gets stuck.
 
-3. Install *e17*:
+4. Install *nodm*. Edit */etc/default/nodm* and set *NODM_ENABLED* to
+   *true*. Finally, change *NODM_USER* to *logicube*. Reboot the system.
+
+Applications
+------------
+
+1. Install *chromium* with recommended packages.
+2. Install *rxvt-unicode-256color*.
+3. Create *.Xdefaults* with the following settings:
 
 .. code-block:: shell
 
-    $ sudo aptitude install -R e17 fonts-droid librsvg2-common
+    URxvt.font: xft:Droid Sans Mono:style=Regular:pixelsize=15
+    !URxvt*letterSpace              : -1
+
+    ! make a scrollbar that's nearly black
+    URxvt*scrollBar:                               false
+    URxvt*scrollBar_floating:                      true
+    URxvt*scrollBar_right:                         false
+    URxvt*scrollColor:                             #202020
+    URxvt*urllauncher:                             chromium
+
+    ! matcher.button # 3 is a right-click
+    URxvt*matcher.button:                          3
+    URxvt*saveLines:                               8192
+    URxvt.perl-ext-common:                         default,matcher
+
+    ! Theme
+    URxvt*background: #000000
+    URxvt*foreground: #ffffff
+
+4. Install *vim* and *vim-gtk* with recommended packages.
