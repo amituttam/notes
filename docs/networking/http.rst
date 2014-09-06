@@ -268,6 +268,52 @@ A basic digest authentication session goes as follows:
                   }
         get(headers)
 
+Cookie Based
+^^^^^^^^^^^^
+
+Cookies are designed to maintain state. Thus, cookie based
+authentication inherits this stateful principle. Cookie authentication
+are the most common method used by web servers to know if the user is
+still logged in or not. The browser keeps sending back the same cookie
+to the server in every request.
+
+Browsert uses **Set-Cookie** header to ask client to store the cookie.
+The client uses **Cookie** header to send back the cookie to the server
+so the server knows which client it is talking to.
+
+Cookies are incompatible with *REST* style/architecture since *REST* is
+stateless. According to *REST* style, cookies maintain site-wide state
+while *REST* styles maintains application state. In *REST*, cookie
+functionality can be achieved using anonymous authentication and
+client-side state. *REST* also defines an alternative to cookies when
+implementing shopping carts. According to *REST*:
+
+*Likewise, the use of cookies to identify a user-specific "shopping
+basket" within a server-side database could be more efficiently
+implemented by defining the semantics of shopping items within the
+hypermedia data formats, allowing the user agent to select and store
+those items within their own client-side shopping basket, complete with
+a URI to be used for check-out when the client is ready to purchase.*
+
+Cookies have certain rules and attributes:
+
+#. Name/value pair can't contain spaces or *;* *=*. Usually only ASCII
+   characters. The *;* is uses as a delimiter.
+
+#. The *Secure* attribute means this cookie is only used in encrypted
+   communications.
+
+#. The *HttpOnly* attribute means this cookie can only be used by
+   http/https requests and not by JavaScript, etc. This prevents cross
+   site scripting.
+
+Other notes:
+
+#. Not good practice to store username/password in cookies, even if it
+   is hashed/salted, etc. Can be stolen and eventually cracked.
+
+#. Cookie based authentication basically involves using the cookie the
+   server sent to the client back to the server for every request.
 
 nginx `engineX`
 ---------------
