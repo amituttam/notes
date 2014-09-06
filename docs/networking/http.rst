@@ -145,16 +145,19 @@ authentication code).
 A basic digest authentication session goes as follows:
 
 #. HTTP client performs a request (GET, POST, PUT, etc)
+
 #. HTTP server responds with a 401 error not authorized. In the
    response, a *WWW-Authenticate* header is sent that contains:
+
    * *Digest algorithm* - Usually *MD5*.
-   * *realm* - The access realm. A string identifying the realm of the
-     server.
+   * *realm* - The access realm. A string identifying the realm of the server.
    * *qop* - Stands for quality of protection (e.g. *auth*)
    * *nonce* - Server generated hash.
+
 #. Client then receives the 401 status error and parses the header so it
    knows how to authenticate itself. It responds with the usual header
    and adds an *Authorization* header containing:
+
    * *Digest username*
    * *realm*
    * *nonce* - Sends the server generated value back.
