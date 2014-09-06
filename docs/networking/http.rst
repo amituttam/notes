@@ -142,6 +142,33 @@ Basically uses MD5 of password and *nonce* value to prevent replay
 attacks. Now, pretty much replaced by HMAC (keyed-hash message
 authentication code).
 
+A basic digest authentication session goes as follows:
+
+#. HTTP client performs a request (GET, POST, PUT, etc)
+#. HTTP server responds with a 401 error not authorized. In the
+   response, a *WWW-Authenticate* header is sent that contains:
+   * *Digest algorithm* - Usually *MD5*.
+   * *realm* - The access realm. A string identifying the realm of the
+     server.
+   * *qop* - Stands for quality of protection (e.g. *auth*)
+   * *nonce* - Server generated hash.
+#. Client then receives the 401 status error and parses the header so it
+   knows how to authenticate itself. It responds with the usual header
+   and adds an *Authorization* header containing:
+   * *Digest username*
+   * *realm*
+   * *nonce* - Sends the server generated value back.
+   * *uri* - Sends the path to the resource it is requesting.
+   * *algorithm* - The algorithm the client used to compute the hashes.
+   * *qop*
+   * *nc* - counter for number of requests.
+   * *cnonce* - client generated nonce.
+   * *response* - Computed hash of ``md5(HA1:nonce:nc:cnonce:qop:HA2)``.
+     * HA1 = ``md5(username:realm:password)``
+     * HA2 = ``md5(<request method.:uri)``
+
+   Notice how the client does not send the password in plain text.
+
 nginx `engineX`
 ---------------
 
@@ -186,7 +213,13 @@ Setting up Digest Auth
 
     sudo htdigest -c /usr/share/nginx/html/.htdigest "Access Restricted" amit
 
-3. Update */etc/nginx/sites-available/default* in the location */* and
+3. Need to build with *nginx-http-auth-digest* module from
+   https://github.com/rains31/nginx-http-auth-digest. In order to do
+   this, download *nginx* debian sources, copy *nginx-http-auth-digest*
+   to *debian/modules*, and finally edit *debian/rules* to build
+   *nginx-http-auth-digest* (look at *--add-module* config option).
+
+4. Update */etc/nginx/sites-available/default* in the location */* and
    reload *nginx*:
 
 .. code-block:: html
