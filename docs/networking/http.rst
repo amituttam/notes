@@ -315,6 +315,24 @@ Other notes:
 #. Cookie based authentication basically involves using the cookie the
    server sent to the client back to the server for every request.
 
+Certificate Based
+^^^^^^^^^^^^^^^^^
+
+Idea is to separate those who verify password (the server will have a
+copy or a hash of the password) and those who define the user identity.
+Thus, certificate authority issues a private certificate to a user, and
+guarantees that it can communicate using this key with the public key
+issued to the other business party.
+
+.. image:: images/02cert.png
+
+The above image depicts certificate-based authentication. The client
+asks the user to enter a password which unlocks the database holding the
+private key. The client then uses this private key to sign a random data
+and sends a certificate to the server. Thus, the password is never sent.
+
+The `Red Hat Portal <https://access.redhat.com/documentation/en-US/Red_Hat_Certificate_System/8.0/html/Deployment_Guide/Introduction_to_Public_Key_Cryptography-Certificates_and_Authentication.html>`_ discusses this in great detail.
+
 nginx `engineX`
 ---------------
 
