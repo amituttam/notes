@@ -61,15 +61,17 @@ Basic format for requests/responses:
 Error Codes
 -----------
 
-====  ==============
-Code  Classification
-====  ==============
-1xx   Informational
-2xx   Success
-3xx   Redirection
-4xx   Client Error
-5xx   Server Error
-===   ==============
+*Summary:*
+
+  ====  ==============
+  Code  Classification
+  ====  ==============
+  1xx   Informational
+  2xx   Success
+  3xx   Redirection
+  4xx   Client Error
+  5xx   Server Error
+  ====  ==============
 
 Methods
 -------
