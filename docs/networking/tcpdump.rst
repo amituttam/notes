@@ -17,7 +17,7 @@ that will confuse the analysis.
 
 To capture `localhost` traffic:
 
-.. code-block:: html
+.. code-block:: shell
 
     sudo tcpdump -A -v --number -i lo tcp port http
 
@@ -29,6 +29,18 @@ To capture `localhost` traffic:
 
 Use `-l` for line buffering to see data while capturing it to a file.
 
-.. code-block:: html
+.. code-block:: shell
 
     sudo tcpdump -l -A -v --number -i lo tcp port http | tee /tmp/capture
+
+Capturing GMail Traffic
+-----------------------
+
+GMail goes over IMAP but not the standard IMAP port (143), it uses 993:
+
+.. code-block:: shell
+
+    sudo tcpdump -vvv -X --number -i wlan0 host 192.168.1.24 and tcp port 993
+
+Use ``-vvv`` (three is max) to decode max level of the packets. Then use
+*-X* to decode in Hex and ASCII.
