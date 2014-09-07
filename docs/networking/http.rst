@@ -3,6 +3,10 @@ HTTP
 
 Hypertext Transfer Protocol
 
+Uses *base64* since HTTP is a protocol used to transfer text. To
+transfer binary it must be encoded as text and sent out. This is what
+*base64* is used for.
+
 Basic format for requests/responses:
 
 .. code-block:: html
@@ -53,6 +57,19 @@ Basic format for requests/responses:
     Transfer-Encoding: chunked
     Connection: keep-alive
     Content-Encoding: gzip
+
+Error Codes
+-----------
+
+====  ==============
+Code  Classification
+====  ==============
+1xx   Informational
+2xx   Success
+3xx   Redirection
+4xx   Client Error
+5xx   Server Error
+===   ==============
 
 Methods
 -------
