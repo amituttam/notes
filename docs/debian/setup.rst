@@ -117,3 +117,4 @@ Applications
     URxvt*foreground: #ffffff
 
 4. Install *vim* and *vim-gtk* with recommended packages.
+5. Install *lxde-icon-theme*, *lxappearance*, *gnome-themes* with recommended packages.
