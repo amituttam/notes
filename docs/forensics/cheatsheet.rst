@@ -10,6 +10,8 @@ Mounting E01 Images
 .. code-block:: shell
 
     # ewfmount /srv/public/E01Capture/E01Capture.E01 /mnt/ewf
+    # or for multiple E01 files
+    # ewfmount /srv/public/E01Capture/E01Capture.E* /mnt/ewf
 
 3. Then use **mmls** from the **sleuthkit** package to analyze the raw
    image and find out where the partition offsets are. Note, in this
