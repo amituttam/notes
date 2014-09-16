@@ -37,3 +37,26 @@ Mounting E01 Images
     # mount -t ext4 -o ro,loop,offset=1048576 /mnt/ewf/ewf1 /mnt/usb
     # or for ntfs
     # mount -t ntfs-3g -o ro,nodev,noexec,show_sys_files,loop,offset=1048576 /mnt/ewf/ewf1 /mnt/usb
+
+Setting HPA
+-----------
+
+Use *hdparm* with the *-N* option to find out the maximum number of
+visible sectors:
+
+.. code-block:: shell
+
+    # hdparm -N /dev/sde
+
+    /dev/sde:
+     max sectors   = 64000/976773168, HPA is enabled
+
+Then, to disable the HPA set it to the max visisble sectors:
+
+.. code-block:: shell
+
+    # hdparm --yes-i-know-what-i-am-doing -N p976773168 /dev/sde
+
+    /dev/sde:
+     setting max visible sectors to 976773168 (permanent)
+      max sectors   = 976773168/976773168, HPA is disabled
