@@ -1,8 +1,5 @@
-SRE (Site Reliability Engineer)
-===============================
-
-Notes
------
+Google I/O 2011: Life in App Engine Production
+==============================================
 
 Notes taken from `Google I/O 2011: Life in App Engine Production <https://www.youtube.com/watch?v=rgQm1KEIIuc>`_
 
