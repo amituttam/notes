@@ -5,3 +5,4 @@ Debian
   :maxdepth: 3
 
   setup
+  commands
