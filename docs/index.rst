@@ -38,3 +38,13 @@ Debian
 
    debian/index
 
+.. _study:
+
+Study
+-----
+
+.. toctree::
+   :maxdepth: 3
+
+   study/index
+
