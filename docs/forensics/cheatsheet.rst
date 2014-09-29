@@ -67,7 +67,7 @@ Cloning Partition Table
 Use **sfdisk**, this is part of the **util-linux** package. In debian, it is
 found in */usr/sbin/sfdisk*.
 
-For GPT based disks, use `**gdisk** <http://unix.stackexchange.com/a/60393>`_.
+For GPT based disks, use `gdisk <http://unix.stackexchange.com/a/60393>`_.
 
 1. Copy the partition table from the source disk:
 
