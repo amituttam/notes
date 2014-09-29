@@ -60,3 +60,21 @@ Then, to disable the HPA set it to the max visisble sectors:
     /dev/sde:
      setting max visible sectors to 976773168 (permanent)
       max sectors   = 976773168/976773168, HPA is disabled
+
+Cloning Partition Table
+-----------------------
+
+Use **sfdisk**, this is part of the **util-linux** package. In debian, it is
+found in */usr/sbin/sfdisk*.
+
+#. Copy the partition table from the source disk:
+
+.. code-block:: shell
+
+    # sfdisk -d /dev/sda > mbr
+
+#. Restore the partition table on destination disk:
+
+.. code-block:: shell
+
+    # sfdisk /dev/sdb < mbr
