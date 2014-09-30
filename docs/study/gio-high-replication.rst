@@ -24,6 +24,11 @@ Notes taken from `Google I/O 2011: More 9s Please: Under The Covers of the High 
      queried using standard SQL.
    * Megastore is powered by *Bigtable* which is a distributed key-value
      store.
+
+     * Big Table is super fast and highly scalable. However, this design
+       has some tradeoffs. Mainly data can be unavailable for short
+       periods of time
+
    * Finally, the file system that powers all this is *GFSv2*, a
      distributed filesystem.
 
@@ -45,3 +50,36 @@ Notes taken from `Google I/O 2011: More 9s Please: Under The Covers of the High 
 #. Planned Maintenance
 
    * Master/Slave
+
+     * Datacenter A becomes readonly, thus app running on app engine
+       will be readonly. In the meantime, the *catchup* happens to
+       datacenter B.
+     * Once that is done, then the switchover will happen.
+     * Requires engineer to initiate switchover.
+
+   * High Replication
+
+     * Seamless migration. Switching is almost transparent.
+     * *Memcache flush* + 1 min no-caching.
+     * This is primarily hosted in a single datacenter. Reason is
+       memcache is quite fast, and doing replication across datacenters
+       is too slow.
+
+#. Unplanned Maintenance
+
+   * Master/Slave experiences immediate switchover. Thus, some data is
+     lost and app is serving stale data. Up to devs to manually flush
+     partial data that was written to Datacenter A to Datacenter B.
+
+   * For High Replication, this is the same as a planned maintenance.
+     Designed to withstand multiple datacenter failures.
+
+#. Some Issues with Bigtable
+
+   * Since multiple apps share the same Bigtable instance, a short
+     period that the Bigtable is unavailable for that Datacenter can
+     cause apps hosted by that datacenter to be unavailable. Note that
+     this is only for Master/slave setup.
+
+   * High replication does not get affected, since it will try a request
+     on another bigtable in another datacenter.
