@@ -118,3 +118,4 @@ Applications
 
 4. Install *vim* and *vim-gtk* with recommended packages.
 5. Install *lxde-icon-theme*, *lxappearance*, *gnome-themes* with recommended packages.
+6. Install *cifs-utils* for *mount.cifs* without recommended packages.
