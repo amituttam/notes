@@ -58,8 +58,8 @@ Basic format for requests/responses:
     Connection: keep-alive
     Content-Encoding: gzip
 
-Error Codes
------------
+Codes
+-----
 
 *Summary:*
 
@@ -72,6 +72,36 @@ Error Codes
   4xx   Client Error
   5xx   Server Error
   ====  ==============
+
+Examples
+^^^^^^^^
+
+**Code 301 Redirection**
+
+An example of this is when requesting a certain snapshot from the debian
+archives. Let's request for a date *(January 02, 2012 22:05:11) 20120102T220511Z*:
+
+.. code-block:: shell
+
+    $ http --headers get http://snapshot.debian.org/archive/debian/20120102T220511Z/pool/main/b/bash/
+    HTTP/1.1 301 Moved Permanently
+    Accept-Ranges: bytes
+    Age: 0
+    Cache-Control: public, max-age=600
+    Connection: keep-alive
+    Content-Encoding: gzip
+    Content-Length: 224
+    Content-Type: text/html; charset=UTF-8
+    Date: Wed, 01 Oct 2014 18:36:27 GMT
+    Expires: Wed, 01 Oct 2014 18:46:26 GMT
+    Location: http://snapshot.debian.org/archive/debian/20120102T214803Z/pool/main/b/bash/
+    Server: Apache
+    Vary: Accept-Encoding
+    Via: 1.1 varnish
+    X-Varnish: 1485917301
+
+Notice that we get back a *301* code that stands for redirection. We
+then get redirected to *http://snapshot.debian.org/archive/debian/20120102T214803Z/pool/main/b/bash/*.
 
 Methods
 -------

@@ -44,3 +44,12 @@ GMail goes over IMAP but not the standard IMAP port (143), it uses 993:
 
 Use ``-vvv`` (three is max) to decode max level of the packets. Then use
 *-X* to decode in Hex and ASCII.
+
+Dropped Packets by the Kernel
+-----------------------------
+
+tcpdump uses a little buffer in the kernel to store captured packets. If
+too many new packets arrive before the user process tcpdump can decode
+them, the kernel drops them to make room for freshly arriving packets.
+
+Use *-B* to increase the buffer. This is in units of KiB (1024 bytes).
