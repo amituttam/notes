@@ -7,6 +7,7 @@ the years. They are categorized into the following sections:
 * :ref:`networking`
 * :ref:`forensics`
 * :ref:`debian`
+* :ref:`study`
 
 .. _networking:
 
