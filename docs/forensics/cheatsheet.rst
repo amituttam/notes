@@ -115,6 +115,12 @@ follows:
 You can also pass the *-w <capture>* to capture the trace to a file and
 read it back using filters or *chisels* with *-r <capture>*.
 
+**References**
+
+#. `Sysdig + Logs: Advanced Log Analysis Made Easy <http://draios.com/sysdig-plus-logs/>`_
+#. `Sysdig for ps, lsof, netstat + time travel <http://draios.com/ps-lsof-netstat-time-travel/>`_
+#. `Hiding Linux Processes For Fun And Profit <http://draios.com/hiding-linux-processes-for-fun-and-profit/>`_
+
 Check for problematic I/Os
 --------------------------
 

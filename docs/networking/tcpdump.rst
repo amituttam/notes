@@ -5,8 +5,26 @@ Network packet capture tool in the CLI. `tcpdump` is extremely useful
 for quick debugging of network issues. Use the `pcap-filter` manpage for
 the filter syntax reference.
 
+Flags
+-----
+
+  ========  ============  ============================================
+  TCP Flag  tcpdump Flag  Meaning
+  ========  ============  ============================================
+  SYN       S             Syn packet, a session establishment request.
+  ACK       A             Ack packet, acknowledge sender's data.
+  FIN       F             Finish flag, indication of termination.
+  RESET     R             Reset, indication of immediate abort of conn.
+  PUSH      P             Push, immediate push of data from sender.
+  URGENT    U             Urgent, takes precedence over other data.
+            .             Placeholder, usually used for ACK.
+  =======   ============  ============================================
+
+Examples
+--------
+
 Capturing Traffic on Localhost
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 During development, there is usually a local webserver setup in
 `http://localhost`. Custom apps/scripts are tested against this local
@@ -34,7 +52,7 @@ Use `-l` for line buffering to see data while capturing it to a file.
     sudo tcpdump -l -A -v --number -i lo tcp port http | tee /tmp/capture
 
 Capturing GMail Traffic
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 GMail goes over IMAP but not the standard IMAP port (143), it uses 993:
 
@@ -46,7 +64,7 @@ Use ``-vvv`` (three is max) to decode max level of the packets. Then use
 *-X* to decode in Hex and ASCII.
 
 Dropped Packets by the Kernel
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 tcpdump uses a little buffer in the kernel to store captured packets. If
 too many new packets arrive before the user process tcpdump can decode
@@ -55,7 +73,7 @@ them, the kernel drops them to make room for freshly arriving packets.
 Use *-B* to increase the buffer. This is in units of KiB (1024 bytes).
 
 Get Time Delta Between Request/Response
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Pass the *-ttt* flag to get the time delta between current line and
 previous line.
@@ -64,12 +82,8 @@ previous line.
 
     $ sudo tcpdump -nS -ttt port http and host snapshot.debian.org
 
-
     tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
     listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
-
-
-
 
     00:00:00.000000 IP 192.168.1.170.34233 > 193.62.202.30.80: Flags [S], seq 1140376233, win 29200, options [mss 1460,sackOK,TS val 22265623 ecr 0,nop,wscale 7], length 0
     00:00:00.228373 IP 193.62.202.30.80 > 192.168.1.170.34233: Flags [S.], seq 1460190713, ack 1140376234, win 5792, options [mss 1350,sackOK,TS val 74072844 ecr 22265623,nop,wscale 7], length 0
