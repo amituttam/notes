@@ -6,5 +6,6 @@ Notes taken from `The Art of Unix Programming <http://www.faqs.org/docs/artu/ind
 .. toctree::
   :maxdepth: 3
 
-  taoup-ch1-philosophy.rst
-  taoup-ch2-history.rst
+  taoup/taoup-ch1-philosophy
+  taoup/taoup-ch2-history
+  taoup/taoup-ch3-contrasts
