@@ -1,6 +1,9 @@
 Chapter 4: Modularity
 =====================
 
+.. toctree::
+  :maxdepth: 3
+
 #. In the beginning, everything was one big lump of machine code. The
    earliest procedural languages brought in the notion of partition by
    subroutine. Then we invented service libraries to share common
@@ -185,3 +188,140 @@ The SPOT Rule
    little it could do — not by carrying assumptions but by starting from
    zero (what in Zen is called “beginner's mind” or “empty mind”).
 
+Software Is a Many-Layered Thing
+--------------------------------
+
+#. Can approach from bottom up or top-down. Bottom up is like
+   *seeking to physical block*, *writing to physical block*, *turn
+   on/off LED*. Top-down is more like *write to logical block*, or
+   *toggle activity indicator*. Top-down is more generic and can apply
+   to different hardware.
+
+#. A very concrete way to think about this difference is to ask whether
+   the design is organized around its main event loop (which tends to
+   have the high-level application logic close to it) or around a
+   service library of all the operations that the main loop can invoke.
+
+#. In the example of web browser, top-down approach focuses on what user
+   will input in the URL (e.g. *file*, *http*, *ftp*, etc.). Bottom up
+   will focus on establishing network connections or handling GUI.
+
+#. Which end of the stack you start with matters a lot, because the
+   layer at the other end is quite likely to be constrained by your
+   initial choices.
+
+#. From top-down you might feel constrained about some domains your
+   application logic initially did not plan for. For bottom-up, you
+   might be designing unnecessary functions that you might never use.
+
+#. Usually programmers are encouraged top-down approach. But the problem
+   sometimes designing that way will involve some redesign since it
+   doesn't pass real-world checks.
+
+#. In self-defense against this, programmers try to do both things —
+   express the abstract specification as top-down application logic, and
+   capture a lot of low-level domain primitives in functions or
+   libraries, so they can be reused when the high-level design changes.
+
+#. Unix programmers, are more focused on systems programming. Thus, they
+   write low-level wrappers for hardware operations and build from that.
+   Thus, they are more bottom-up.
+
+#. Bottom-up can give you time to redefine what the application is going
+   to be. So you can start with the building blocks first without really
+   knowing what the actual design on the application will be.
+
+#. Real code, therefore tends to be programmed both top-down and
+   bottom-up. Often, top-down and bottom-up code will be part of the
+   same project. That's where ‘glue’ enters the picture.
+
+Glue
+^^^^
+
+#. One of the lessons Unix programmers have learned over decades is that
+   glue is nasty stuff and that it is vitally important to keep glue
+   layers as thin as possible. Glue should stick things together, but
+   should not be used to hide cracks and unevenness in the layers.
+
+#. The thin-glue principle can be viewed as a refinement of the Rule of
+   Separation. Policy (the application logic) should be cleanly
+   separated from mechanism (the domain primitives), but if there is a
+   lot of code that is neither policy nor mechanism, chances are that it
+   is accomplishing very little besides adding global complexity to the
+   system.
+
+#. *C* is an example of a very good thin glue. Designed for the *classic
+   architecture*. Basically, a typical computer architecture: *inary
+   representation, flat address space, a distinction between memory and
+   working store (registers), general-purpose registers, address
+   resolution to fixed-length bytes, two-address instructions,
+   big-endianness, and data types a consistent set with sizes a
+   multiple of 4 bits*.
+
+#. *C* was designed to run on architectures similar to PDP-11 (which it
+   was developed on). PDP-11 arch became a good model for future
+   microprocessor architectures. Thus, *C* was a natural fit in future
+   microprocessors.
+
+#. This history is worth recalling and understanding because C shows us
+   how powerful a clean, minimalist design can be. If Thompson and
+   Ritchie had been less wise, they would have designed a language that
+   did much more, relied on stronger assumptions, never ported
+   satisfactorily off its original hardware platform, and withered away
+   as the world changed out from under it. 
+
+#. Antoine de Saint-Exupéry once put it, writing about the design of
+   airplanes: *La perfection est atteinte non quand il ne reste rien à
+   ajouter, mais quand il ne reste rien à enlever. ("Perfection is
+   attained not when there is nothing more to add, but when there is
+   nothing more to remove".)*
+
+Libraries
+^^^^^^^^^
+
+#. If you are careful and clever about design, it is often possible to
+   partition a program so that it consists of a user-interface-handling
+   main section (policy) and a collection of service routines
+   (mechanism) with effectively no glue at all. Effectively, these are
+   libraries.
+
+#. An important form of library layering is the plugin, a library with a
+   set of known entry points that is dynamically loaded after startup
+   time to perform a specialized task. For plugins to work, the calling
+   program has to be organized largely as a documented service library
+   that the plugin can call back into.
+
+Unix and Object-Oriented Languages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. In object-oriented programming, the functions that act on a
+   particular data structure are encapsulated with the data in an object
+   that can be treated as a unit. By contrast, modules in non-OO
+   languages make the association between data and the functions that
+   act on it rather accidental, and modules frequently leak data or bits
+   of their internals into each other.
+
+#. The OO design concept initially proved valuable in the design of
+   graphics systems, graphical user interfaces, and certain kinds of
+   simulation. To the surprise and gradual disillusionment of many, it
+   has proven difficult to demonstrate significant benefits of OO
+   outside those areas. It's worth trying to understand why.
+
+#. Unix programmers don't really like OO since it encourages
+   abstractions and thick glue layers. Since it is easy to create
+   abstractions, it is everywhere. Unix programmers like the think glue
+   layer C provides.
+
+Coding for Modularity
+^^^^^^^^^^^^^^^^^^^^^
+
+#. A good test for API complexity is: Try to describe it to another
+   programmer over the phone. If you fail, it is very probably too
+   complex, and poorly designed.
+
+#. Do any of your APIs have more than seven entry points? Do any of your
+   classes have more than seven methods each? Do your data structures
+   have more than seven members?
+
+#. Globals also mean your code cannot be reentrant; that is, multiple
+   instances in the same process are likely to step on each other.

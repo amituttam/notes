@@ -1,6 +1,9 @@
 Chapter 3: Contrasts
 ====================
 
+.. toctree::
+  :maxdepth: 3
+
 #. Different operating systems were designed by the influences of
    culture, limitations (usually economic), and ideas of their
    designers.
