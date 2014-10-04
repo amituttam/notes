@@ -69,9 +69,9 @@ Chapter 3: Contrasts
      smallest possible pieces of trusted code. Under Unix, even the
      shell (the system command interpreter) is not a privileged program.
 
- #. OSes need strong internal boundaries for stability and security.
+#. OSes need strong internal boundaries for stability and security.
 
- #. Unix files have neither record structure nor attributes. Other OSes
+#. Unix files have neither record structure nor attributes. Other OSes
     know about the file and the type of the file. For example, other
     OSes associate file extension with application to open that file. In
     Unix, applications recognize the files by their *magic number* or
