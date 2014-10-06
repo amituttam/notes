@@ -2,7 +2,7 @@ Chapter 3: Contrasts
 ====================
 
 .. toctree::
-  :maxdepth: 3
+   :maxdepth: 3
 
 #. Different operating systems were designed by the influences of
    culture, limitations (usually economic), and ideas of their
@@ -75,10 +75,10 @@ Chapter 3: Contrasts
 #. OSes need strong internal boundaries for stability and security.
 
 #. Unix files have neither record structure nor attributes. Other OSes
-    know about the file and the type of the file. For example, other
-    OSes associate file extension with application to open that file. In
-    Unix, applications recognize the files by their *magic number* or
-    other data type within the file itself.
+   know about the file and the type of the file. For example, other
+   OSes associate file extension with application to open that file. In
+   Unix, applications recognize the files by their *magic number* or
+   other data type within the file itself.
 
 #. OS-level record structures are generally an optimization hack, and do
    little more than complicate APIs and programmers' lives. They

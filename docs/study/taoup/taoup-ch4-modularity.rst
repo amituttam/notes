@@ -2,7 +2,7 @@ Chapter 4: Modularity
 =====================
 
 .. toctree::
-  :maxdepth: 3
+   :maxdepth: 3
 
 #. In the beginning, everything was one big lump of machine code. The
    earliest procedural languages brought in the notion of partition by

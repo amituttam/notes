@@ -2,7 +2,7 @@ Chapter 2: Origins and History of Unix
 ======================================
 
 .. toctree::
-  :maxdepth: 3
+   :maxdepth: 3
 
 #. Multics designed for time-sharing mainframe systems. Was too
    complicated and thus Unix was born from the ashes of Multics. The

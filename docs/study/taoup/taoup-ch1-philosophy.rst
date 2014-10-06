@@ -2,7 +2,7 @@ Chapter 1: Philosophy
 =====================
 
 .. toctree::
-  :maxdepth: 3
+   :maxdepth: 3
 
 #. The Unix API is the closest thing to a hardware-independent standard
    for writing truly portable software that exists. It is no accident

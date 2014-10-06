@@ -2,7 +2,7 @@ Chapter 5: Textuality
 =====================
 
 .. toctree::
-  :maxdepth: 3
+   :maxdepth: 3
 
 *It's a well-known fact that computing devices such as the abacus were
 invented thousands of years ago. But it's not well known that the first
@@ -93,10 +93,10 @@ control-sea.*
    * Also designed to easily detect file corruption.
 
 #. In Unix, there are already established textual format designs that
-  should be used since libraries are already written to parse them.
-  Also, users probably recognize them already. Examples are *DSV
-  (Delimiter Separated Values)*. On the other hand, *CSV (Comma
-  Separated Values)* are not really used in Unix.
+   should be used since libraries are already written to parse them.
+   Also, users probably recognize them already. Examples are *DSV
+   (Delimiter Separated Values)*. On the other hand, *CSV (Comma
+   Separated Values)* are not really used in Unix.
 
   * CSV has a lot more complicated parser since if comma is found in a
     record, the whole record needs to be escaped with quotes. And if the
