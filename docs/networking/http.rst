@@ -1,11 +1,22 @@
 HTTP
 ====
 
-Hypertext Transfer Protocol
+.. contents:: :depth: 3
 
-Uses *base64* since HTTP is a protocol used to transfer text. To
-transfer binary it must be encoded as text and sent out. This is what
-*base64* is used for.
+#. Hypertext Transfer Protocol. Based on RFC 822/MIME format.
+
+#. For transferring binary it Uses *base64* since HTTP is a protocol used
+   to transfer text. To transfer binary it must be encoded as text and sent
+   out. This is what *base64* is used for.
+
+#. HTTP 1.1 added persistent connections, byte ranges, content
+   negotiations, and cache support.
+
+#. Note that HTTP's protocol overhead along with connection setup
+   overhead of using TCP can make HTTP a poor choice for certain
+   applications. In these cases, UDP is recommended (for example DNS
+   uses simple UDP requests/responses for most of the DNS queries). Can
+   mitigate some of the overhead by using persistent HTTP connections.
 
 Basic format for requests/responses:
 
@@ -227,6 +238,9 @@ A basic digest authentication session goes as follows:
    sends back *OK* with content. Note that *rspauth* sent back by server
    is a mutual authentication proving to client it knows its secret.
 
+#. *Note* that each client needs to know the password and the password
+   needs to be shared securely before hand.
+
 **Example HTTP Capture:**
 
 .. code-block:: shell
@@ -245,8 +259,7 @@ A basic digest authentication session goes as follows:
     Content-Type: text/html
     Content-Length: 194
     Connection: keep-alive
-    WWW-Authenticate: Digest algorithm="MD5", qop="auth", realm="Access
-    Restricted", nonce="2a27b9b6540a6cd4"
+    WWW-Authenticate: Digest algorithm="MD5", qop="auth", realm="Access Restricted", nonce="2a27b9b6540a6cd4"
 
     C:
     GET /files/ HTTP/1.1
@@ -369,9 +382,21 @@ Certificate Based
 
 Idea is to separate those who verify password (the server will have a
 copy or a hash of the password) and those who define the user identity.
-Thus, certificate authority issues a private certificate to a user, and
+Thus, certificate authority (CA) issues a private certificate to a user, and
 guarantees that it can communicate using this key with the public key
 issued to the other business party.
+
+Note that the downside becomes apparent when large number of clients or
+users need to authenticate to the server. Thus, CA needs to issue
+certificate for each user. These certificates needs to be verified and
+if one user is compromised the certificate of that user can be used to
+authenticate to the server unless the certificate is revoked.
+
+For the reasons stated above, client authentication is rarely used with
+TLS. A common technique is to use TLS to authenticate the server to the
+client and to establish a private channel, and for the client to
+authenticate to the server using some other means - for example, a
+username and password using HTTP basic or digest authentication.
 
 .. image:: images/02cert.png
 

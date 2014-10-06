@@ -1,8 +1,7 @@
 Chapter 5: Textuality
 =====================
 
-.. toctree::
-   :maxdepth: 3
+.. contents:: :depth: 2
 
 *It's a well-known fact that computing devices such as the abacus were
 invented thousands of years ago. But it's not well known that the first
@@ -206,12 +205,36 @@ Application Protocol Design
    * Application can tunnel through native HTTP port 80 instead of a
      custom TCP/IP port which may need to be opened up in the firewall.
 
+     * However, it is not good practice to use same port, especially if
+       the application is serving data quite different from normal HTTP.
+
+     * Thus, with a separate port, you can also easily distinguish the
+       traffic and maybe filter it out if necessary.
+
+     * Also note that if different port is used, a new URL scheme needs
+       to be registered (e.g. *git://*).
+
    * However, there is definitely a risk. When the webserver and plugins
      become more complicated, cracks in the code can have large security
      implications.
 
    * `RFC 3205 Use of of HTTP as a Substrate <http://tools.ietf.org/html/rfc3205>`_ has good advice for
      using HTTP as under layer of an application protocol.
+
+     * Be careful when re-using HTTP status codes. For example, a 200
+       error your application returns means success in HTTP. Thus, a
+       proxy caching responses will send that response back to other
+       requests. Similarly with 500 error, the proxy might respond and
+       add a helpful message but the 500 error means something else to
+       your application.
+
+     * If the different codes needs to be returned, they should not be
+       returned in the standard HTTP headers but in the body of the
+       message.
+
+     * A layered application which cannot operate in the presence of
+       intermediaries or proxies that cache and/or alter error
+       responses, should not use HTTP as a substrate.
 
 #. *IPP (Internet Printing Protocol)* is used to control
    network-accessible printers.
