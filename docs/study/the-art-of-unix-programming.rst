@@ -10,3 +10,4 @@ Notes taken from `The Art of Unix Programming <http://www.faqs.org/docs/artu/ind
   taoup/taoup-ch2-history
   taoup/taoup-ch3-contrasts
   taoup/taoup-ch4-modularity
+  taoup/taoup-ch5-textuality
