@@ -1,4 +1,4 @@
-Chapter 2: Multiprogramming
+Chapter 7: Multiprogramming
 ===========================
 
 .. contents:: :depth: 2
