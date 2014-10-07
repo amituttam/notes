@@ -268,3 +268,82 @@ Peer-to-Peer Inter-Process Communication
 
 #. X uses shared memory for performance gains to pass large images
    between client and server.
+
+Problems and Methods to Avoid
+-----------------------------
+
+Obsolete Unix IPC Methods
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. System V had IPC facilities in the form of message passing
+   (*msgctl(2)*). This is still available in Linux.
+
+#. Despite occasional exceptions such as NFS (Network File System) and
+   the GNOME project, attempts to import CORBA, ASN.1, and other forms
+   of remote-procedure-call interface have largely failed — these
+   technologies have not been naturalized into the Unix culture.
+
+   * Hard to query the interfaces for their capabilities.
+
+   * Difficult to monitor them in action without building special tools.
+
+   * Examples of bad designs outside Unix is COM/DCOM on Windows.
+
+#. Unix tradition, on the other hand, strongly favors transparent and
+   discoverable interfaces.
+
+#. Today, RPC and the Unix attachment to text streams are converging in
+   an interesting way, through protocols like XML-RPC and SOAP. 
+
+Threads — Threat or Menace?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. Though Unix developers have long been comfortable with computation by
+   multiple cooperating processes, they do not have a native tradition
+   of using threads (processes that share their entire address spaces).
+
+#. From a complexity-control point of view, threads are a bad substitute
+   for lightweight processes with their own address spaces; the idea of
+   threads is native to operating systems with expensive
+   process-spawning and weak IPC facilities. 
+
+#. Threads are a fertile source of bugs because they can too easily know
+   too much about each others' internal states.
+
+#. There is no automatic encapsulation, as there would be between
+   processes with separate address spaces that must do explicit IPC to
+   communicate. 
+
+#. While threading can get rid of some of the overhead of rapidly
+   switching process contexts, locking shared data structures so threads
+   won't step on each other can be just as expensive.
+
+#. Jim Gettys (Author of X): **The X server, able to execute literally
+   millions of ops/second, is not threaded; it uses a poll/select loop.
+   Various efforts to make a multithreaded implementation have come to
+   no good result. The costs of locking and unlocking get too high for
+   something as performance-sensitive as graphics servers.** 
+
+#. The upshot is that you cannot count on threaded programs to be portable.
+
+   * Each OS has different implementations.
+
+Process Partitioning at the Design Level
+----------------------------------------
+
+#. The first thing to notice is that tempfiles, the more interactive
+   sort of master/slave process relationship, sockets, RPC, and all
+   other methods of bidirectional IPC are at some level equivalent —
+   they're all just ways for programs to exchange data during their
+   lifetimes.
+
+#. We've seen from the PostgreSQL study that one effective way to hold
+   down complexity is to break an application into a client/server pair.
+   The PostgreSQL client and server communicate through an application
+   protocol over sockets, but very little about the design pattern would
+   change if they used any other bidirectional IPC method.
+
+#. If you can use limited shared memory and semaphores, asynchronous
+   I/O using SIGIO, or poll(2)/select(2) rather than threading, do it
+   that way. Keep it simple; use techniques earlier on this list and
+   lower on the complexity scale in preference to later ones. 
