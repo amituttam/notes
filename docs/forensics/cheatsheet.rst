@@ -61,6 +61,21 @@ Then, to disable the HPA set it to the max visisble sectors:
      setting max visible sectors to 976773168 (permanent)
       max sectors   = 976773168/976773168, HPA is disabled
 
+Setting DCO
+-----------
+
+To identify DCO on disk:
+
+.. code-block:: shell
+
+    # hdparm --dco-identify /dev/sdb
+
+To erase DCO on disk:
+
+.. code-block:: shell
+
+    # hdparm --yes-i-know-what-i-am-doing --dco-restore /dev/sdb
+
 Cloning Partition Table
 -----------------------
 
@@ -81,8 +96,8 @@ For GPT based disks, use `gdisk <http://unix.stackexchange.com/a/60393>`_.
 
     # sfdisk /dev/sdb < mbr
 
-Inspecting Process Syscalls
----------------------------
+Inspecting Process Syscalls Using *sysdig*
+------------------------------------------
 
 Use **sysdig** to get detailed information about process system calls.
 For example, to see what calls are being made by *iceweasel* do the
