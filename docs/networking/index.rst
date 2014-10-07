@@ -7,3 +7,4 @@ Networking
   http
   tcpdump
   cheatsheet
+  troubleshooting
