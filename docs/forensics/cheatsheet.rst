@@ -166,3 +166,6 @@ To see I/Os and its respective processes with CPU usage, use **iotop**.
         28565 be/4 root      0.00 B/s    0.00 B/s  0.00 %  0.27 % [kworker/1:5]
         26449 be/4 root      0.00 B/s    0.00 B/s  0.00 %  0.21 % [kworker/1:2]
         ...
+
+*-o* shows only processes that are active and *-a* shows accumulated
+data read/written.
