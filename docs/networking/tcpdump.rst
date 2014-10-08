@@ -25,6 +25,24 @@ Flags
 Examples
 --------
 
+Capturing ARP Traffic
+^^^^^^^^^^^^^^^^^^^^^
+
+When using tcpdump to capture ARP, make sure to dump the hex output (*-X*)
+and also decode ethernet header using (*-e*).
+
+.. code-block:: shell
+
+    $ sudo tcpdump -nnvvv -e -X arp 
+      tcpdump: listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
+      20:01:28.452956 48:5a:b6:51:57:dd > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 60: Ethernet (len 6), IPv4 (len 4), Request who-has 192.168.1.1 tell 192.168.1.23, length 46
+          0x0000:  0001 0800 0604 0001 485a b651 57dd c0a8  ........HZ.QW...
+          0x0010:  0117 0000 0000 0000 c0a8 0101 0000 0000  ................
+          0x0020:  0000 0000 0000 0000 0000 0000 0000       ..............
+      20:01:28.454472 bc:ee:7b:58:17:b8 > 48:5a:b6:51:57:dd, ethertype ARP (0x0806), length 42: Ethernet (len 6), IPv4 (len 4), Reply 192.168.1.1 is-at bc:ee:7b:58:17:b8, length 28
+          0x0000:  0001 0800 0604 0002 bcee 7b58 17b8 c0a8  ..........{X....
+          0x0010:  0101 485a b651 57dd c0a8 0117            ..HZ.QW.....
+
 Capturing Traffic on Localhost
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
