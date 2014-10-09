@@ -100,6 +100,13 @@ Inspecting Process Syscalls Using *sysdig*
 ------------------------------------------
 
 Use **sysdig** to get detailed information about process system calls.
+To install sysdig on a debian based system if the package is not
+available in the repos:
+
+.. code-block:: bash
+
+    $ curl -s https://s3.amazonaws.com/download.draios.com/stable/install-sysdig | sudo bash
+
 For example, to see what calls are being made by *iceweasel* do the
 following:
 
@@ -108,6 +115,14 @@ following:
     $ sudo sysdig proc.name=iceweasel
     10903 11:19:00.961549300 0 iceweasel (17398) > poll fds=5:e1 4:u1 8:p3 10:u1 22:p1 24:u1 3:f0 timeout=4294967295
     10908 11:19:00.961558641 0 iceweasel (17398) > switch next=0 pgft_maj=611 pgft_min=148114721 vm_size=2665740 vm_rss=1377504 vm_swap=0
+
+For a specific process id:
+
+.. code-block:: bash
+
+    $ sudo sysdig thread.tid=922
+    2543694 12:16:34.481253335 0 ongserver (922) > write fd=0(<u>) size=2069216
+    2543695 12:16:34.481409710 0 ongserver (922) > switch next=910(pic-host) pgft_maj=0 pgft_min=22625 vm_size=335844 vm_rss=73700 vm_swap=0
 
 The format of the output is quite similar to *tcpdump*. The output is as
 follows:
@@ -129,6 +144,10 @@ follows:
 
 You can also pass the *-w <capture>* to capture the trace to a file and
 read it back using filters or *chisels* with *-r <capture>*.
+
+Can also list available chilses with *-cl* and use *i <chisel>* to get
+info on chisel. Then use *-c chisel* with *-r <trace>* to filter out
+capture.
 
 **References**
 

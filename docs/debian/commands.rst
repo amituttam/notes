@@ -1,7 +1,12 @@
 Commands
 ========
 
-Finding hardlink of file. For example ``zipinfo``:
+.. contents:: :depth: 3
+
+Finding hardlink of file
+------------------------
+
+For example ``zipinfo``:
 
 .. code-block:: bash
 
@@ -26,3 +31,15 @@ one).
     /usr/bin/unzip
     /usr/bin/zipinfo
 
+When DKMS Build Fails Due to Missing Source
+-------------------------------------------
+
+The kernel headers are enought to build a module. However, if building
+the DKMS fails and kernel headers package are installed, it usually
+means there is no *build* symlink under */lib/modules/`uname -r`*.
+
+Do the following to create the symlink:
+
+.. codeblock:: bash
+
+    $ sudo ln -s /usr/src/linux-headers-$(uname -r)/ /lib/modules/$(uname -r)/build
