@@ -74,15 +74,25 @@ Codes
 
 *Summary:*
 
-  ====  ==============
+  ====  =====================
   Code  Classification
-  ====  ==============
+  ====  =====================
   1xx   Informational
+  ----  ---------------------
   2xx   Success
+  200   OK
+  ----  ---------------------
   3xx   Redirection
+  301   Moved Permanently
+  ----  ---------------------
   4xx   Client Error
+  401   Unauthorized
+  403   Forbidden
+  404   Not Found
+  ----  ---------------------
   5xx   Server Error
-  ====  ==============
+  500   Internal Server Error
+  ====  =====================
 
 Examples
 ^^^^^^^^
