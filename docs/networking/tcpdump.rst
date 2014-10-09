@@ -19,8 +19,8 @@ Flags
   RESET     R             Reset, indication of immediate abort of conn.
   PUSH      P             Push, immediate push of data from sender.
   URGENT    U             Urgent, takes precedence over other data.
-  NONE      .             Placeholder, usually used for ACK.
-  =======   ============  =============================================
+            .             Placeholder, usually used for ACK.
+  ========  ============  =============================================
 
 Examples
 --------
