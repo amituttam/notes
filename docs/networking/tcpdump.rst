@@ -10,9 +10,9 @@ Flags
 
 *tcpdump* Flags:
 
-  ========  ============  ============================================
+  ========  ============  =============================================
   TCP Flag  tcpdump Flag  Meaning
-  ========  ============  ============================================
+  ========  ============  =============================================
   SYN       S             Syn packet, a session establishment request.
   ACK       A             Ack packet, acknowledge sender's data.
   FIN       F             Finish flag, indication of termination.
@@ -20,7 +20,7 @@ Flags
   PUSH      P             Push, immediate push of data from sender.
   URGENT    U             Urgent, takes precedence over other data.
             .             Placeholder, usually used for ACK.
-  =======   ============  ============================================
+  =======   ============  =============================================
 
 Examples
 --------
