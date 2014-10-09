@@ -7,7 +7,7 @@ Finding Duplicate IP Addresses on the Network
 1. Install **arp-scan**.
 2. Run the following command:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo arp-scan -I eth0 -l | grep 192.168.1.42
     $ OR
