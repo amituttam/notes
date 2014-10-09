@@ -92,7 +92,7 @@ Examples
 An example of this is when requesting a certain snapshot from the debian
 archives. Let's request for a date *(January 02, 2012 22:05:11) 20120102T220511Z*:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ http --headers get http://snapshot.debian.org/archive/debian/20120102T220511Z/pool/main/b/bash/
     HTTP/1.1 301 Moved Permanently
@@ -243,7 +243,7 @@ A basic digest authentication session goes as follows:
 
 **Example HTTP Capture:**
 
-.. code-block:: shell
+.. code-block:: bash
 
     C:
     GET /files/ HTTP/1.1

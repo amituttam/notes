@@ -19,7 +19,7 @@ Basic Setup
 3. Login using *su* and install *sudo*.
 4. Add the following lines using *visudo*:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # User privilege specification
     logicube        ALL=(ALL:ALL) ALL
@@ -28,7 +28,7 @@ Basic Setup
    don't have to use no recommends here since the list of packages it
    recommends is only one.
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo aptitude install avahi-daemon
 
@@ -40,20 +40,20 @@ systemd
 1. Create */var/log/journal* where *systemd* can store persistent journals.
 2. The directory should be owned by *systemd-journal*.
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo chgrp systemd-journal /var/log/journal
 
 3. Fix the permissions for this group so that any user that is a member
    of *systemd-journal* should be able to access it.
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo chmod g+rwx /var/log/journal
 
 4. Add the user to the *systemd-journal* group:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo usermod -a -G systemd-journal logicube
 
@@ -64,13 +64,13 @@ Enlightenment
 
 1. Install basic *X*, use *-R* to not install recommended packages:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo aptitude install -R xserver-xorg xserver-xorg-core xinit xinput xserver-xorg-video-intel xserver-xorg-input-evdev x11-utils
 
 2. Install *e17*:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo aptitude install -R e17 fonts-droid librsvg2-common
 
@@ -95,7 +95,7 @@ Applications
 2. Install *rxvt-unicode-256color*.
 3. Create *.Xdefaults* with the following settings:
 
-.. code-block:: shell
+.. code-block:: bash
 
     URxvt.font: xft:Droid Sans Mono:style=Regular:pixelsize=15
     !URxvt*letterSpace              : -1

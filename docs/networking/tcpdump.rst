@@ -19,7 +19,7 @@ Flags
   RESET     R             Reset, indication of immediate abort of conn.
   PUSH      P             Push, immediate push of data from sender.
   URGENT    U             Urgent, takes precedence over other data.
-            \.            Placeholder, usually used for ACK.
+            "."           Placeholder, usually used for ACK.
   ========  ============  =============================================
 
 Examples
@@ -55,7 +55,7 @@ that will confuse the analysis.
 
 To capture `localhost` traffic:
 
-.. code-block:: shell
+.. code-block:: bash
 
     sudo tcpdump -A -v --number -i lo tcp port http
 
@@ -67,7 +67,7 @@ To capture `localhost` traffic:
 
 Use `-l` for line buffering to see data while capturing it to a file.
 
-.. code-block:: shell
+.. code-block:: bash
 
     sudo tcpdump -l -A -v --number -i lo tcp port http | tee /tmp/capture
 
@@ -76,7 +76,7 @@ Capturing GMail Traffic
 
 GMail goes over IMAP but not the standard IMAP port (143), it uses 993:
 
-.. code-block:: shell
+.. code-block:: bash
 
     sudo tcpdump -vvv -X --number -i wlan0 host 192.168.1.24 and tcp port 993
 
@@ -98,7 +98,7 @@ Get Time Delta Between Request/Response
 Pass the *-ttt* flag to get the time delta between current line and
 previous line.
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo tcpdump -nS -ttt port http and host snapshot.debian.org
 

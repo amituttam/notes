@@ -7,7 +7,7 @@ Mounting E01 Images
 1. Install **ewf-tools** which contains **ewfmount**.
 2. Mount the E01 image. This mounts it as a raw file.
 
-.. code-block:: shell
+.. code-block:: bash
 
     # ewfmount /srv/public/E01Capture/E01Capture.E01 /mnt/ewf
     # or for multiple E01 files
@@ -17,7 +17,7 @@ Mounting E01 Images
    image and find out where the partition offsets are. Note, in this
    case partition offset is (*512*2048=1048756*).
 
-.. code-block:: shell
+.. code-block:: bash
 
     # mmls /mnt/ewf/ewf1
     DOS Partition Table
@@ -32,7 +32,7 @@ Mounting E01 Images
 
 4. Mount the filesystem using regular *mount*:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # mount -t ext4 -o ro,loop,offset=1048576 /mnt/ewf/ewf1 /mnt/usb
     # or for ntfs
@@ -44,7 +44,7 @@ Setting HPA
 Use *hdparm* with the *-N* option to find out the maximum number of
 visible sectors:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # hdparm -N /dev/sde
 
@@ -53,7 +53,7 @@ visible sectors:
 
 Then, to disable the HPA set it to the max visisble sectors:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # hdparm --yes-i-know-what-i-am-doing -N p976773168 /dev/sde
 
@@ -66,13 +66,13 @@ Setting DCO
 
 To identify DCO on disk:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # hdparm --dco-identify /dev/sdb
 
 To erase DCO on disk:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # hdparm --yes-i-know-what-i-am-doing --dco-restore /dev/sdb
 
@@ -86,13 +86,13 @@ For GPT based disks, use `gdisk <http://unix.stackexchange.com/a/60393>`_.
 
 1. Copy the partition table from the source disk:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # sfdisk -d /dev/sda > mbr
 
 2. Restore the partition table on destination disk:
 
-.. code-block:: shell
+.. code-block:: bash
 
     # sfdisk /dev/sdb < mbr
 
@@ -103,7 +103,7 @@ Use **sysdig** to get detailed information about process system calls.
 For example, to see what calls are being made by *iceweasel* do the
 following:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo sysdig proc.name=iceweasel
     10903 11:19:00.961549300 0 iceweasel (17398) > poll fds=5:e1 4:u1 8:p3 10:u1 22:p1 24:u1 3:f0 timeout=4294967295
@@ -112,7 +112,7 @@ following:
 The format of the output is quite similar to *tcpdump*. The output is as
 follows:
 
-.. code-block:: shell
+.. code-block:: bash
 
     <evt.num> <evt.time> <evt.cpu> <proc.name> <thread.tid> <evt.dir> <evt.type> <evt.args>
 
@@ -141,7 +141,7 @@ Check for problematic I/Os
 
 Use **iostat** to see current read/write rates:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo iostat -d 1
     Linux 3.16-2-amd64 (amit-debian)        10/02/2014      _x86_64_ (8 CPU)
@@ -156,7 +156,7 @@ Use **iostat** to see current read/write rates:
 
 To see I/Os and its respective processes with CPU usage, use **iotop**.
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo iotop
     Total DISK READ :       0.00 B/s | Total DISK WRITE :       7.64 K/s

@@ -3,7 +3,7 @@ Commands
 
 Finding hardlink of file. For example ``zipinfo``:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ ls -l /usr/bin/zipinfo 
     -rwxr-xr-x 2 root root 158360 Apr 24 14:41 /usr/bin/zipinfo
@@ -13,14 +13,14 @@ one).
 
 #. Use ``ls -i`` to find ``inode`` number of  file:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ ls -i /usr/bin/zipinfo
     1187726 /usr/bin/zipinfo
 
 #. Use find to search for that specific ``inode``:
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ find /usr/bin/ -inum 1187726
     /usr/bin/unzip
