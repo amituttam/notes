@@ -19,7 +19,7 @@ Flags
   RESET     R             Reset, indication of immediate abort of conn.
   PUSH      P             Push, immediate push of data from sender.
   URGENT    U             Urgent, takes precedence over other data.
-            .             Placeholder, usually used for ACK.
+            \.            Placeholder, usually used for ACK.
   ========  ============  =============================================
 
 Examples
@@ -31,7 +31,7 @@ Capturing ARP Traffic
 When using tcpdump to capture ARP, make sure to dump the hex output (*-X*)
 and also decode ethernet header using (*-e*).
 
-.. code-block:: shell
+.. code-block:: bash
 
     $ sudo tcpdump -nnvvv -e -X arp 
       tcpdump: listening on wlan0, link-type EN10MB (Ethernet), capture size 262144 bytes
