@@ -61,7 +61,7 @@ When a client makes a request, the following usually happens:
 Protocol
 --------
 
-.. code-block:: raw
+.. code-block:: sh
 
                                            1  1  1  1  1  1
              0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
