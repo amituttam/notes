@@ -60,3 +60,152 @@ When a client makes a request, the following usually happens:
 
 Protocol
 --------
+
+.. code-block:: raw
+
+                                           1  1  1  1  1  1
+             0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+            +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+            |                      ID                       |
+            +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+            |QR|   Opcode  |AA|TC|RD|RA| Z|AD|CD|   RCODE   |
+            +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+            |                QDCOUNT/ZOCOUNT                |
+            +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+            |                ANCOUNT/PRCOUNT                |
+            +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+            |                NSCOUNT/UPCOUNT                |
+            +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+            |                    ARCOUNT                    |
+            +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+#. DNS protocol is quite light (12 bytes) and uses UDP so it is fast and
+   much less overhead.
+
+#. Zone Transfer and other heavy operations use TCP.
+
+#. Fields in Protocol:
+
+   * *Identifier*: 16-bit field containing ID so requests and responses
+     and can be matched.
+
+   * *QR Flag*: 1-bit field indicating packet is query or
+     response.
+
+   * *OP*: Specifies type of message. 0 - standard query, 1 - inverse
+     query (obsolete), 2 - server status, 3 - reserve and unused, 4 -
+     notification, 5 - update (Dynamic DNS).
+
+   * *AA* - Single bit indicating authoritative answer from server who
+     authoritative for that domain.
+
+   * *TC*: Single bit for truncation. If set, usually means sent via UDP
+     but was longer than 512 bytes.
+
+   * *RD*: Single bit indicating recursion desired.
+
+   * *RA*: Single bit reply by server indicating recursion is available.
+
+   * *Z*: Three bits reserved and set to 0.
+
+   * *RCode*: 4-bit field set to 0s for queries but set for responses.
+
+     * 1 - Format error
+     * 2 - Server failure
+     * 3 - Name error
+     * 4 - Not implemented
+     * 5 - Refused
+     * 6 - Name exists but shouldn't
+     * 7 - Resource records exists but shouldn't
+     * 8 - Resource record that should exist but doesn't
+     * 9 - Response is not authoritative
+     * 10 - Name is response is not within zone specified.
+
+   * *QCount*: How many questions in question section
+   
+   * *ANCount*: How many answers in answer section
+
+   * *NSCount*: How many resource records in authority section
+
+   * *ARCount*: How many resource records in additional section
+
+DNS Caches vs. DNS Servers vs. DNS Resolvers
+--------------------------------------------
+
+#. DNS Cache is a list of names and IPs you resolved recently. The cache
+   can be located in the OS level (not for Linux). Cache can be at
+   browser level, router level, ISP level.
+
+#. A DNS server can act as a cache if it is not authoritative for any
+   domain. Thus, performs queries for clients and caches resolved names.
+
+#. A DNS server can be authoritative for that domain and holds
+   authoritave answers for certain resources.
+
+#. DNS Resolvers are just clients.
+
+   * When the client requests for recursive queries, it asks the server
+     to do all the work for it and just waits for the final answer.
+
+   * Iterative queries gets a response from server on where to look
+     next. For example, if the client asks for chat.google.com, it tells
+     the client to check with the .com servers and considers its work
+     done.
+
+Authoritative vs Non-authoritative Responses
+--------------------------------------------
+
+#. Authoritative responses come directly from a nameserver that has
+   authority over the record in question.
+
+#. Non-authoritave come from a second-hand server or more likely a
+   cache.
+
+Zone Tranfers
+-------------
+
+#. Uses TCP instead of UDP and during the operation, the client sends a
+   query type of IXFR instead of AXFR.
+
+#. Slave DNS servers pull records from master DNS servers.
+
+#. Can use *dig* to perform Zone Transfer.
+
+Anycast DNS
+-----------
+
+#. Allows for same IP to be served from multiple locations.
+
+#. Network decides based on distance, latency, and network conditions
+   which location to route to.
+
+#. Like a CDN for your DNS.
+
+DNS Security
+------------
+
+#. Main security issue is typing correct URL and pointed to IP of
+   malicious server.
+
+#. Easy to spoof because query and responses are UDP based.
+
+#. DNSSEC is security oriented extensions for DNS. Main purpose is to
+   ensure response comes from authorized origin.
+
+#. Works by signing responses using public-key cryptography and uses new
+   resource records.
+
+   * *RRSIG*: DNSSEC signature for a record set. The DNS clients verify
+     the signature with a public key stored in *DNSKEY* record.
+
+   * *DNSKEY*: Contains the public key.
+
+   * *DS*: Holds name of delegated zone.
+
+   * *NSEC*: Contains link to next record name in zone. Used for
+     validation.
+
+   * *NSEC3*: Similar to NSEC but hashed.
+
+   * *NSEC3PARAM*: Authoritative servers uses this which *NSEC3* records
+     to use in responses.
