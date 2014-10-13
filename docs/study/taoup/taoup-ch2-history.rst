@@ -5,7 +5,7 @@ Chapter 2: Origins and History of Unix
 
 #. Multics designed for time-sharing mainframe systems. Was too
    complicated and thus Unix was born from the ashes of Multics. The
-   design was to not repeat smae mistakes and thus much simpler design.
+   design was to not repeat same mistakes and thus much simpler design.
 
 #. Invented by Ken Thompson from Bell Laboratories. Partnered with
    Dennis Ritchie (labeled co-inventor) and creator of C programming
@@ -116,9 +116,9 @@ Chapter 2: Origins and History of Unix
 #. XFree86 used Internel development and was more effective than X
    consortium and provided BSD and Linux with graphics engine in 1992.
 
-#. Internet Engineering Task Force (IETF) and originated the tradition
-   of standardization through Requests For Comment (RFCs) started from
-   same group of *hackers* who managed ARPANET at MIT AI Lab.
+#. Internet Engineering Task Force (IETF) originated the tradition
+   of standardization through Requests For Comment (RFCs). This started
+   from same group of *hackers* who managed ARPANET at MIT AI Lab.
 
 #. Interesting was that these *geeks* were not Unix programmers. Early
    Unix programmers were from academia and corporations that were
@@ -153,7 +153,7 @@ Chapter 2: Origins and History of Unix
 #. According to Eric S. Raymond (author of *TAOUP*) **"Given a
    sufficiently large number of eyeballs, all bugs are shallow"**. Thus,
    the argument changed from **Free software because all software should
-   be free** to **ree software because it works better**.
+   be free** to **Free software because it works better**.
 
 #. The paper's contrast between *cathedral* (centralized, closed,
    controlled, secretive) and *bazaar* (decentralized, open,
@@ -167,12 +167,12 @@ Chapter 2: Origins and History of Unix
 #. In March of 1998 an unprecedented summit meeting of community
    influence leaders representing almost all of the major tribes
    convened to consider common goals and tactics. That meeting adopted a
-   new label for the common development method of all the factions: open
-   source.
+   new label for the common development method of all the factions: **open
+   source**.
 
 #. Most Unix hackers and tribes adopted this new *open source* banner.
    However, the major standout was RMS. He specifically did not want
-   *Free Software* = *Open Source*. He claimed and ideological
+   *Free Software* = *Open Source*. He claimed an ideological
    difference.
 
 #. The other main intention behind *open source* was to present the
