@@ -3,9 +3,7 @@ Firewall
 
 .. contents:: :depth: 3
 
-Notes from:
-
-#. `Wikipedia - Firewall <http://en.wikipedia.org/wiki/Firewall_(computing)>`_
+Notes from: `Wikipedia - Firewall <http://en.wikipedia.org/wiki/Firewall_(computing)>`_
 
 #. Firewall controls incoming and outgoing network based on applied rules.
 

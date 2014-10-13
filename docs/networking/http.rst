@@ -221,7 +221,7 @@ keepalive in Linux
 
 Default is two hours before starting to send keepalive packets:
 
-.. code-block:: sh
+.. code-block:: raw
 
     # cat /proc/sys/net/ipv4/tcp_keepalive_time
     7200
@@ -241,7 +241,7 @@ Can also use `libkeepalive <http://libkeepalive.sourceforge.net/>`_ with
 Document Caching
 ----------------
 
-From: `Googlw Browser Security Handbook, Part 2 <https://code.google.com/p/browsersec/wiki/Part2#Document_caching>`_
+From: `Google Browser Security Handbook, Part 2 <https://code.google.com/p/browsersec/wiki/Part2#Document_caching>`_
 
 #. HTTP requests are expensive mainly because of overhead of setting up
    TCP connections. Thus, important to have the browser or intermediate
