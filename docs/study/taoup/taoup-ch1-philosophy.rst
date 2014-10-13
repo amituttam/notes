@@ -20,10 +20,10 @@ Chapter 1: Philosophy
    always be self-evident. Data structures, not algorithms, are central
    to programming.
 
-#. Rule of Repair: When you must fail, fail noisily and as soon as
-   possible.
+#. *Rule of Repair: When you must fail, fail noisily and as soon as
+   possible.*
 
-#. Rule of Modularity: Write simple parts connected by clean interfaces.
+#. *Rule of Modularity: Write simple parts connected by clean interfaces.*
    The only way to write complex software that won't fall on its face is
    to hold its global complexity down — to build it out of simple parts
    connected by well-defined interfaces, so that most problems are local
