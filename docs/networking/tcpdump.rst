@@ -92,6 +92,22 @@ them, the kernel drops them to make room for freshly arriving packets.
 
 Use *-B* to increase the buffer. This is in units of KiB (1024 bytes).
 
+Capturing TCP SYN Packets
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To capture SYN packets only:
+
+.. code-block:: sh
+
+    $ sudo tcpdump -nnvvv host 192.168.1.116 and "tcp[tcpflags] & tcp-syn != 0"
+
+To capture TCP keepalive packets 1-byte or 0-byte ACKs. Note that a
+keepalive probe is a packet with no data and ACK flag turned on:
+
+.. code-block:: sh
+
+    $ sudo tcpdump -vv "tcp[tcpflags] == tcp-ack and less 1"
+
 Get Time Delta Between Request/Response
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

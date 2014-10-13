@@ -78,6 +78,7 @@ Codes
   Code  Classification
   ====  =====================
   1xx   Informational
+  100   Continue
   ----  ---------------------
   2xx   Success
   200   OK
@@ -150,6 +151,162 @@ Fetch a resource. Example in python:
 
     ## Cleanup
     http_conn.close()
+
+Persistent Connections
+----------------------
+
+#. Uses *Connection: keep-alive* header request/response header.
+
+#. Idea is to use single TCP connection to send and receive multiple
+   HTTP Requests/Responses. Thus, avoiding expensive TCP handshake.
+
+#. This is default in HTTP/1.1.
+
+#. Disadvantages when single documents are repeatedly requested (e.g.
+   images). This kills performance due to keeping unnecessary
+   connections open for many seconds after document was retrieved.
+
+#. When you set up a TCP connection, you associate a set of timers.
+   Some of the timers are used for keepalive.
+
+#. A Keepalive probe is a packet with no data and ACK flag turned on.
+
+   * Note that in TCP/IP RFC, ACK segments with no data are not reliably
+     transmitted by TCP. Thus, no retries.
+
+   * Remote host doesn't need to support keepalive. It will see an ACK
+     packet and send back an ACK reply.
+
+#. Since TCP/IP is a stream oriented protocol, a zero length data packet
+   is not dangerous for user program.
+
+#. If no reply packets are received for keepalive probe, can assume that
+   connection is broken.
+
+#. Also useful when NAT terminates connection since it only can keep
+   track of certain number of connections at a time.
+
+#. Useful to know if peers have died before notifying you (e.g. kernel
+   panic, reboot).
+
+.. code-block:: sh
+     _____                                                     _____
+    |     |                                                   |     |
+    |  A  |                                                   |  B  |
+    |_____|                                                   |_____|
+       ^                                                         ^
+       |--->--->--->-------------- SYN -------------->--->--->---|
+       |---<---<---<------------ SYN/ACK ------------<---<---<---|
+       |--->--->--->-------------- ACK -------------->--->--->---|
+       |                                                         |
+       |                                       system crash ---> X
+       |
+       |                                     system restart ---> ^
+       |                                                         |
+       |--->--->--->-------------- PSH -------------->--->--->---|
+       |---<---<---<-------------- RST --------------<---<---<---|
+       |                                                         |
+
+References:
+
+#. `TCP Keepalive HOWTO <http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html>`_
+
+#. `Wikipedia - HTTP Persistent Connection <http://en.wikipedia.org/wiki/HTTP_persistent_connection>`_
+
+#. `RFC 1122 Section 4.2.3.6 - TCP Keep-Alives <http://tools.ietf.org/html/rfc1122#page-101>`_
+
+
+keepalive in Linux
+^^^^^^^^^^^^^^^^^^
+
+Default is two hours before starting to send keepalive packets:
+
+.. code-block:: sh
+
+    # cat /proc/sys/net/ipv4/tcp_keepalive_time
+    7200
+
+    # cat /proc/sys/net/ipv4/tcp_keepalive_intvl
+    75
+
+    # cat /proc/sys/net/ipv4/tcp_keepalive_probes
+    9
+ 
+To add support to your application use *setsockopt()* and configure the socket
+connection for keepalive. 
+
+Can also use `libkeepalive <http://libkeepalive.sourceforge.net/>`_ with
+*LD_PRELOAD* to add support to any C application.
+
+Document Caching
+----------------
+
+From: `Googlw Browser Security Handbook, Part 2 <https://code.google.com/p/browsersec/wiki/Part2#Document_caching>`_
+
+#. HTTP requests are expensive mainly because of overhead of setting up
+   TCP connections. Thus, important to have the browser or intermediate
+   system (proxy) maintain local copy of some of the data.
+
+#. The HTTP/1.0 spec did define some headers to handle caching but it
+   did no provide any specific guidance.
+
+   * *Expires*: This is a response header that allows server to declare
+     an expiration date. When this date is passed, browsers must
+     retrieve new document. There is a *Date* header as well which
+     defines the date and time which message was originated. Sometimes,
+     however, *Date* header is not part of response. Thus,
+     implementation is then browser specific.
+
+     The RFC also does not specify if the *Expires* is based on
+     browser's local clock. Thus, current practice is to compute
+     *Expires-Date* delta and compare it to browser clock.
+
+   * *Pragma* request header when set to *no-cache* permits clients to
+     override intermediate systems to re-issue requests rather than
+     retrieve cached data. For *Pragma* response header, it instructs
+     browser not to cache this data.
+
+   * *Last-Modified* response header indicates when resource was last
+     updated according to server's local clock. Reflects modification
+     date of file system. Used in conjunction with *If-Modified-Since*
+     request header to revalidate cache entries.
+
+   * *If-Modified-Since* request header, permitting client to indicate
+     what *Last-Modified* header it had seen on the version of the
+     document already present in browser or proxy cache. If server
+     calculates that no modification since *If-Modified-Since* date it
+     returns *304 Not Modified* response instead of requested document.
+     Thus, client will redisplay cached content.
+
+   * All of above was useful when content was static. Thus, with complex
+     dynamic web apps, most developers turned off caching.
+
+#. HTTP/1.1 acknowledges the issue and establishes ground rules for what
+   and when should be cached.
+
+   * Only 200 (*OK*), 203 (*Non-Authoritative*), 206 (*Partial
+     Content*), 300 (*Multple Choices*), and 301 (*Redirection*)
+     responses are cacheable, and only if the method is not POST, PUT,
+     DELETE, or TRACE.`
+
+   * *Cache-Control* header introduced that provides a fine-grained
+     control over caching strategies.
+
+     * *no-cache* disables cache all together. Can disable cache for
+       certain specific headers as well (e.g. *no-cache: Set-Cookie*).
+
+       * Firefox still stores responses because of back and forward
+         navigation between sessions. But it doesn't do this on *https*
+         connections because of sensitive information such as banking,
+         etc.
+
+     * *no-store*: If in request don't store any request response in
+       cache. If sent in response, client must not store anything from
+       request/response headers.
+
+     * *public/private*: Controls caching on intermediate systems.
+
+     * *max-age*: Time to live in seconds.
 
 Authentication
 --------------

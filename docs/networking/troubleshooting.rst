@@ -3,6 +3,26 @@ Troubleshooting
 
 .. contents:: :depth: 2
 
+Common Server Problems
+----------------------
+
+#. Sometimes a server is not accessible why is that? Answer in terms of
+   DNS.
+
+   The DNS resolver's cache is controlled by the time-to-live (TTL)
+   value that you set for your records and is specified in seconds. For
+   example, if you set a TTL value of 86400 (the number of seconds in 24
+   hours), the DNS resolvers are instructed to cache the records for 24
+   hours. Some DNS resolvers ignore the TTL value or use their own
+   values that can delay the full propagation of records.
+
+   If you are planning for a change to services that requires a narrow
+   window, you might want to change the TTL in advance of your change to
+   a shorter TTL value. This change can help reduce the caching window
+   and ensure a quicker change to your new record settings. After the
+   change, you can change the value back to its previous TTL value to
+   reduce load on the DNS resolvers.
+
 Common AJAX Problems
 --------------------
 
@@ -40,3 +60,63 @@ Common AJAX Problems
 
    * Solution to this is to use internal page anchors. Basically, save
      the current URL and use that.
+
+Common App Engine Problems
+--------------------------
+
+#. If you have timeouts in your application, you maybe updating a single
+   entity group in your datastore too rapidly (about 5 times/sec).
+   Datastore will be in contention. Design issue of BigTable.
+
+   * Can be a problem if you have a entity that is a counter that you
+     want to update faster than 5 times/sec.
+
+   * Way to reduce problem is taking advantage of extremely cheap and
+     fast reads from datastore. Thus, use *sharding* to split counters
+     into *N* counters.
+
+     * When you want to increment the counter, pick a shard at random
+       and increment it.
+
+     * When you want to read the total count, read all shards and sum up
+       all counters.
+
+     * The more shards, the higher throughput on increments to counters.
+
+   * Another way is to make updates to memcache and periodically
+     flushing to datastore.
+
+   * Timeouts can happen if your data is in a tablet that is currently
+     being moved around between servers for load balancing when you are
+     trying to access it.
+
+   * Timeouts can happen if you are writing large data and thus tablets
+     are being split while you are writing. Use exponential backoff
+     strategy before retrying since it takes sometimes couple hunder
+     millisecs to a sec or two for tablets to be available.
+
+#. To handle errors in datastore gracefully, make transactions
+   *idempotent*. Thus, if you repeat the transaction, the end result
+   will be the same.
+
+#. If daily budget is exceeded in app engine, application could serve
+   errors.
+
+#. When upgrading to a new application, don't move all your users right
+   away. Use traffic splitting to gradually move new requests to new
+   version of your application. Cached objects may no longer be cached
+   thus an increase in read latency.
+
+   * IP Address splitting works by hashing IP Address to value of 0-999
+     and splitting based on that.
+
+   * Cookies give finer split control and more detailed statistics.
+     Uses *GOOGAPPUID* cookie and range of 0-999.
+
+   * Some issues with traffic splitting is cached documents. Use
+     *Cache-Control* and *Expires* header to tell proxies that resource
+     is dynamic.
+
+#. To avoid thundering herd problem (where retries get compounded
+   because first retry fails and all requests keep trying), use backoff
+   on retry.
