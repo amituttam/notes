@@ -1,7 +1,7 @@
 Chapter 3: Contrasts
 ====================
 
-.. contents:: :depth: 2
+.. contents:: :depth: 3
 
 #. Different operating systems were designed by the influences of
    culture, limitations (usually economic), and ideas of their
@@ -18,11 +18,11 @@ Chapter 3: Contrasts
    processes or *Multitasking*. *DOS* and *CP/M* were basically
    sequential loaders with to multitasking abilities.
 
-#. *Cooperative Multitasking* is the ability to share multiple processes
-   with. However, there was no memory management unit or locking. Thus,
+#. *Cooperative Multitasking* is the ability to share multiple processes.
+   However, there was no memory management unit or locking. Thus,
    a bug in a program could freeze the entire system.
 
-#. Unix has *preemptive multitasking**, in which timeslices are
+#. Unix has *preemptive multitasking*, in which timeslices are
    allocated by a scheduler which routinely interrupts or pre-empts the
    running process in order to hand control to the next one. Almost all
    modern operating systems support preemption.
@@ -206,7 +206,7 @@ OS/2
    analog of a home directory; application data tended to be scattered
    all over the system.
 
-#. Since there were no per-user privilege group. Trusted programs would
+#. Since there were no per-user privilege group, trusted programs would
    be jammed into kernel or WPS thus resulting in bloat.
 
 #. Used both text and binary formats.
@@ -359,7 +359,7 @@ VM/CMS
 #. VM/CMS is IBM's other mainframe operating system. Historically
    speaking, it is Unix's uncle: the common ancestor is the CTSS system,
    developed at MIT around 1963 and running on the IBM 7094 mainframe.
-   Since the group that wrote CTSS went on to write Multics.
+   The group that wrote CTSS went on to write Multics.
 
 #. The unifying idea of the system, provided by the VM component, is
    virtual machines, each of which looks exactly like the underlying
@@ -394,8 +394,9 @@ Linux
    Unixes, with interfaces designed (as of 2003, with only mixed
    success) to be palatable to nontechnical end users.
 
-#. Linux 2.5's incorporation of extended file attributes, which among
-   other things can be used to emulate the semantics of the Macintosh
+#. Linux 2.5's incorporation of extended file attributes
+   (using ``getfattr(1)`` and ``setfattr(1)``), which among other
+   things can be used to emulate the semantics of the Macintosh
    resource fork, is a recent major one at time of writing. This mainly
    to support other filesystems from other OSes natively on Linux.
 
