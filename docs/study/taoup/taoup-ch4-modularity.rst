@@ -23,7 +23,7 @@ Chapter 4: Modularity
 #. Dennis Ritchie encouraged modularity by telling all and sundry that
    function calls were really, really cheap in C. However, this wasn't
    really the case at first but Dennis tricked everyone! However,
-   everyone was hooked.
+   by then everyone was hooked.
 
 #. The first and most important quality of modular code is
    encapsulation. Well-encapsulated modules don't expose their internals
@@ -117,7 +117,7 @@ Orthogonality
    source.
 
 #. There is an excellent discussion of orthogonality and how to achieve
-   it in The Pragmatic Programmer [Hunt-Thomas]. As they point out,
+   it in *The Pragmatic Programmer [Hunt-Thomas]*. As they point out,
    orthogonality reduces test and development time, because it's easier
    to verify code that neither causes side effects nor depends on side
    effects from other code.
@@ -168,7 +168,7 @@ The SPOT Rule
    maintenance. Second, the results are clear and consistent, unmarred
    by surprises where heuristics fail.
 
-#. Other examples, are *grep* which is a thing wrapper around a formal
+#. Other examples, are *grep* which is a thin wrapper around a formal
    algebra of regexs. *yacc* is based on LR-1 grammars at its core.
 
 #. The opposite of a formal approach is using heuristics—rules of thumb
@@ -250,7 +250,7 @@ Glue
    system.
 
 #. *C* is an example of a very good thin glue. Designed for the *classic
-   architecture*. Basically, a typical computer architecture: *inary
+   architecture*. Basically, a typical computer architecture: *unary
    representation, flat address space, a distinction between memory and
    working store (registers), general-purpose registers, address
    resolution to fixed-length bytes, two-address instructions,
@@ -308,7 +308,7 @@ Unix and Object-Oriented Languages
 
 #. Unix programmers don't really like OO since it encourages
    abstractions and thick glue layers. Since it is easy to create
-   abstractions, it is everywhere. Unix programmers like the think glue
+   abstractions, it is everywhere. Unix programmers like the thin glue
    layer C provides.
 
 Coding for Modularity
