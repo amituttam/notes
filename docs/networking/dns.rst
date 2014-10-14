@@ -43,7 +43,7 @@ left:
 
 #. The host/resource name
 
-.. image:: images/dns_hierarchy_ex1.gif
+.. image:: images/dns_hierarchy_ex1.png
 
 Note that organizing the namespace in a hierarchy of domain names nicely
 solves the problem of name uniqueness; with DNS, a hostname has to be
