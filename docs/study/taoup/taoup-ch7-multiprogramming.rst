@@ -13,14 +13,14 @@ Chapter 7: Multiprogramming
    simpler subprocesses, and to concentrate on the interfaces between
    these subprocesses. It does this in at least three fundamental ways:
 
-    * by making process-spawning cheap;
+   * by making process-spawning cheap;
 
-    * by providing methods (shellouts, I/O redirection, pipes,
-      message-passing, and sockets) that make it relatively easy for
-      processes to communicate;
+   * by providing methods (shellouts, I/O redirection, pipes,
+     message-passing, and sockets) that make it relatively easy for
+     processes to communicate;
 
-    * by encouraging the use of simple, transparent, textual data
-      formats that can be passed through pipes and sockets.
+   * by encouraging the use of simple, transparent, textual data
+     formats that can be passed through pipes and sockets.
 
 #. While the benefit of breaking programs up into cooperating processes
    is a reduction in global complexity, the cost is that we have to pay
@@ -134,8 +134,8 @@ Slave Processes
 Peer-to-Peer Inter-Process Communication
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. The previous sections depicted a hierarchy of communication where one
-   program controls the other.
+The previous sections depicted a hierarchy of communication where one
+program controls the other.
 
 **Tempfiles**
 
