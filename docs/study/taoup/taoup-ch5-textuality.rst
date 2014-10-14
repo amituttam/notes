@@ -67,7 +67,7 @@ control-sea.*
    * Problem eventually showed up in X, where it was very difficult to
      extend it.
 
-#. For the Unix passwd file, there isn't really much saving you can do
+#. For the Unix ``passwd`` file, there isn't really much saving you can do
    with a binary file format. Colon ':' separators are quite small,
    binary equivalent would not be much smaller.
 
@@ -97,12 +97,12 @@ control-sea.*
    (Delimiter Separated Values)*. On the other hand, *CSV (Comma
    Separated Values)* are not really used in Unix.
 
-  * CSV has a lot more complicated parser since if comma is found in a
-    record, the whole record needs to be escaped with quotes. And if the
-    record has quotes already, need to escape with more quotes.
+   * CSV has a lot more complicated parser since if comma is found in a
+     record, the whole record needs to be escaped with quotes. And if the
+     record has quotes already, need to escape with more quotes.
 
-  * In DSV, only need to escape ':' with a backslash. And backslashes
-    are escaped by another backslash.
+   * In DSV, only need to escape ':' with a backslash. And backslashes
+     are escaped by another backslash.
 
 #. RFC 822 is a textual format for Internet electronic messages. It
    allows for attachments using MIME (Multipurpose Internet Media
@@ -194,7 +194,7 @@ Application Protocol Design
 #. Most applications nowadays layer their special purpose protocols on
    top of HTTP. HTTP has become a universal application protocol.
 
-   * Can use existing HTTP methods *GET (fetch resource)*, *PUT (modify
+   * Can use existing HTTP methods *GET (fetch resource)*, *PUT (modify/create
      resource)*, and *POST (ship data to a form or backend process)*.
 
    * Has a RFC 822/MIME message format. Thus, can contain arbitrary
@@ -244,8 +244,9 @@ Application Protocol Design
 
    * HTTP 1.1 allows persistent connections that make a multi-message
      protocol more efficient. Thus you can chunk the files without
-     having to pre-scan the files to determine length of request. Thus,
-     keep sending requests as the process scans the files.
+     having to pre-scan the files to determine length of request. *Note
+     that in this case, Transfer-Encoding header is used instead of
+     Content-Lenght*. Thus, keep sending requests as the process scans the files.
 
    * Also, using HTTP redirection (301 Code), the server can tell client
      to redirect the submission of the job to another printer server
