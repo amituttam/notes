@@ -40,6 +40,6 @@ means there is no *build* symlink under */lib/modules/`uname -r`*.
 
 Do the following to create the symlink:
 
-.. codeblock:: bash
+.. code-block:: bash
 
     $ sudo ln -s /usr/src/linux-headers-$(uname -r)/ /lib/modules/$(uname -r)/build
