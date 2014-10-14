@@ -3,6 +3,29 @@ Troubleshooting
 
 .. contents:: :depth: 2
 
+Identifying and Solving Performance Issues
+------------------------------------------
+
+Steps should be followed in order:
+
+#. *Understand the problem*
+
+   * Half the problem is solved when problem is understood clearly.
+
+#. *Monitor and collect data*
+
+   * Monitor the system and collect as much data as possible.
+
+#. *Eliminate and narrow down issues*
+
+   * Come up with a list of potential issues and possibly narrow them
+     down eliminating any non issues.
+
+#. *Make one change at a time*
+
+   * Make one change and re-test. Don't make multiple changes at one
+     time.
+
 Common Server Problems
 ----------------------
 

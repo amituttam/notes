@@ -188,3 +188,22 @@ To see I/Os and its respective processes with CPU usage, use **iotop**.
 
 *-o* shows only processes that are active and *-a* shows accumulated
 data read/written.
+
+Tracing SUID Programs
+---------------------
+
+You can use *strace* to trace SUID programs. Note that by default SUID
+programs can't be debugged or traced by ordinary users because this
+would allow tracing user to excute code as a different user (with
+privileges as user executing SUID program).
+
+Thus, SUID programs can be executed without SUID bit and then traced.
+However, this is not ideal because you don't really want to change the
+program behavior by removing SUID bit.
+
+You can also run strace as root. This will then run the program you are
+tracing as root which might be dangerous. Another way is to temporary set
+SUID root for strace. This also runs program as root.
+
+Note that *strace* calls *ptrace* internally and affects program
+performance. Can use *ltrace* to just trace library calls.
