@@ -35,7 +35,7 @@ Notes taken from `Google I/O 2011: More 9s Please: Under The Covers of the High 
 #. Writes to Datastore
 
    * In a Master/Slave, write happens to Datacenter A and gets
-     asynchronously writted to Datacenter B at a later time.
+     asynchronously written to Datacenter B at a later time.
    * In High Replication, write happens to a majority of the replicas
      synchronously. The other replica(s) that don't get the write
      synchronously gets an asynchronous write scheduled. Or can be
