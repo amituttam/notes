@@ -12,6 +12,8 @@ Notes taken from:
 
 #. `Linux Network Administrator's Guide, 2nd Edition <http://oreilly.com/catalog/linag2/book/ch06.html>`_
 
+#. `RFC 1035 - DOMAIN NAMES - IMPLEMENTATION AND SPECIFICATION <https://www.ietf.org/rfc/rfc1035.txt>`_
+
 DNS is the Domain Name System used for obtaining IP Addresses from FQDN
 (Fully Qualified Domain Names). An FQDN is an absolute name and provides
 the exact location in the tree hierarchy of the domain name system. It
@@ -104,7 +106,9 @@ When a client makes a request, the following usually happens:
 Protocol
 --------
 
-.. code-block:: sh
+**Header**
+
+.. code-block:: none
 
                                            1  1  1  1  1  1
              0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
@@ -122,12 +126,56 @@ Protocol
             |                    ARCOUNT                    |
             +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-#. DNS protocol is quite light (12 bytes) and uses UDP so it is fast and
+**Question Section**
+
+.. code-block:: none
+
+                                    1  1  1  1  1  1
+      0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                                               |
+    /                     QNAME                     /
+    /                                               /
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                     QTYPE                     |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                     QCLASS                    |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+**Resource Record Format**
+
+.. code-block:: none
+
+                                    1  1  1  1  1  1
+      0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                                               |
+    /                                               /
+    /                      NAME                     /
+    |                                               |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                      TYPE                     |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                     CLASS                     |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                      TTL                      |
+    |                                               |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    |                   RDLENGTH                    |
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--|
+    /                     RDATA                     /
+    /                                               /
+    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+
+#. DNS protocol uses port 53 for TCP and UDP.
+
+#. DNS protocol is quite light (12 bytes header) and uses UDP so it is fast and
    much less overhead.
 
 #. Zone Transfer and other heavy operations use TCP.
 
-#. Fields in Protocol:
+#. Fields in header:
 
    * *Identifier*: 16-bit field containing ID so requests and responses
      and can be matched.
@@ -178,7 +226,7 @@ DNS Database
 #. DNS database does not only deal with IP Addresses of hosts but
    contains different types of entries.
 
-#. Single piece on info from the DNS database is called a *RR (Resource
+#. Single piece of info from the DNS database is called a *RR (Resource
    Record)*.
 
 #. Each record has a type associated with it describing the sort of data
@@ -331,6 +379,10 @@ Zone Tranfers
 
 #. Can use *dig* to perform Zone Transfer.
 
+#. If you have control of the zone, you can set it up to get transfers
+   that are protected with a TSIG key. This is a shared secret the the
+   client can send to the server to authorize the transfer.
+
 Anycast DNS
 -----------
 
@@ -340,6 +392,22 @@ Anycast DNS
    which location to route to.
 
 #. Like a CDN for your DNS.
+
+#. When you deploy identical servers at multiple nodes, on multiple networks,
+   in widely diverse geographical locations, all using Anycast, you're
+   effectively adding global load-balancing functionality to your DNS
+   service. Importantly, the load-balancing logic is completely invisible
+   to the DNS servers; it's moved down the stack from the application to
+   the network layer. Because each node advertises the same IP address,
+   user traffic is shared between servers globally, handled transparently
+   by the network itself using standard BGP routing.
+   
+#. An example of this would be to list your DNS servers as 1.2.3.4 and 1.2.3.5.
+   Your routers would announce a route for 1.2.3/24 out of multiple datacenters.
+   If you're in Japan and have a datacenter there, chances are you'd end up there.
+   If you're in the US, you'd be sent to your US datacenter. Again, it's based on
+   BGP routing and not actual geographic routing, but that's usually how things
+   break down.
 
 DNS Security
 ------------
