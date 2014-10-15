@@ -29,6 +29,11 @@ Steps should be followed in order:
 Common Server Problems
 ----------------------
 
+#. "Transfer-Encoding: chunked" isn't needed for progressive rendering.
+   However, it is needed when the total content length is unknown before the first
+   bytes are sent. Usually, it is used automatically by Web Server when you start
+   sending data without knowing the length.
+
 #. A server is used as a proxy in order to perform cross domain
    requests. If the server returns *502* error it means: *The server,
    while acting as a gateway or proxy, received an invalid response from

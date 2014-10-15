@@ -72,6 +72,39 @@ Basic format for requests/responses:
     Connection: keep-alive
     Content-Encoding: gzip
 
+Query String
+------------
+
+Notes from: `Wikipedia - Query string <http://en.wikipedia.org/wiki/Query_string>`_ and'
+`RFC 3986 - Uniform Resource Identifier (URI) <http://tools.ietf.org/html/rfc3986>`_.
+
+#. Part of the URL that does not really fit in a path hierarchy.
+   Example: ``http://example.com/over/there?name=ferret``
+
+#. Server may pass the query string to a CGI (Common Gateway Interface) script.
+
+#. The ``?`` separates the resource from the query string. Example for
+   Google search: ``https://www.google.com/?gws_rd=ssl#q=test``. Thus,
+   the URL can be bookmarked and shared.
+
+#. Usually used to store content of web forms.
+
+#. The format is key,value pairs. Series of pairs usually separated by
+   ``&``.
+
+#. The ``#`` is known as a fragment.
+
+
+.. code-block:: none
+
+         foo://example.com:8042/over/there?name=ferret#nose
+         \_/   \______________/\_________/ \_________/ \__/
+          |           |            |            |        |
+       scheme     authority       path        query   fragment
+          |   _____________________|__
+         / \ /                        \
+         urn:example:animal:ferret:nose
+
 Codes
 -----
 
@@ -174,6 +207,58 @@ Fetch a resource. Example in python:
 
     ## Cleanup
     http_conn.close()
+
+Difference Between POST and PUT
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. POST is used for creating, PUT is used for updating (and creating).
+   It's also worthwhile to note that PUT should be idempotent whereas
+   POST is not.
+
+   * Idempotent means that same request over and over has same result.
+     Thus, if you are doing PUT and connection dies, you can safely do a
+     PUT again.
+
+#. Also, according to HTTP/1.1 spec:
+
+   *The POST method is used to request that the origin server accept the
+   entity enclosed in the request as a new subordinate of the resource
+   identified by the Request-URI in the Request-Line*
+
+   *The PUT method requests that the enclosed entity be stored under the
+   supplied Request-URI. If the Request-URI refers to an already
+   existing resource, the enclosed entity SHOULD be considered as a
+   modified version of the one residing on the origin server. If the
+   Request-URI does not point to an existing resource, and that URI is
+   capable of being defined as a new resource by the requesting user
+   agent, the origin server can create the resource with that URI."*
+
+
+#. Thus, *POST* can be used to create. PUT can be used to create or
+   udpate.
+
+#. Difference is in terms of API calls. You usually do a *POST* to an
+   API endpoint (or a URL that already exists):
+
+.. code-block:: none
+    POST https://www.googleapis.com/dns/v1beta1/projects/project/managedZones   
+
+    {
+        parameters*
+    }
+
+#. With *PUT* you actually create a valid path under the URL:
+
+.. code-block:: none
+
+    PUT /questions/<new_question> HTTP/1.1
+    Host: wahteverblahblah.com
+
+#. Thus, you use PUT to create the resource and then use that URL for
+   POST.
+
+#. Note that with POST, server decides new URL path, with *PUT* user
+   decides.
 
 Persistent Connections
 ----------------------
