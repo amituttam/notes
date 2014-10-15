@@ -29,6 +29,11 @@ Steps should be followed in order:
 Common Server Problems
 ----------------------
 
+#. A server is used as a proxy in order to perform cross domain
+   requests. If the server returns *502* error it means: *The server,
+   while acting as a gateway or proxy, received an invalid response from
+   the upstream server it accessed in attempting to fulfill the request.*
+
 #. Sometimes a server is not accessible why is that? Answer in terms of
    DNS.
 
