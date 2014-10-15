@@ -238,26 +238,27 @@ Difference Between POST and PUT
    udpate.
 
 #. Difference is in terms of API calls. You usually do a *POST* to an
-   API endpoint (or a URL that already exists):
+   API endpoint (or a URL that already exists).
 
 .. code-block:: none
+
     POST https://www.googleapis.com/dns/v1beta1/projects/project/managedZones   
 
     {
         parameters*
     }
 
-#. With *PUT* you actually create a valid path under the URL:
+5. With *PUT* you actually create a valid path under the URL:
 
 .. code-block:: none
 
     PUT /questions/<new_question> HTTP/1.1
     Host: wahteverblahblah.com
 
-#. Thus, you use PUT to create the resource and then use that URL for
+6. Thus, you use PUT to create the resource and then use that URL for
    POST.
 
-#. Note that with POST, server decides new URL path, with *PUT* user
+7. Note that with POST, server decides new URL path, with *PUT* user
    decides.
 
 Persistent Connections
