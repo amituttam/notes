@@ -88,6 +88,7 @@ Codes
   ----  ---------------------
   3xx   Redirection
   301   Moved Permanently
+  302   Found
   ----  ---------------------
   4xx   Client Error
   401   Unauthorized
@@ -106,7 +107,7 @@ Examples
 An example of this is when requesting a certain snapshot from the debian
 archives. Let's request for a date *(January 02, 2012 22:05:11) 20120102T220511Z*:
 
-.. code-block:: bash
+.. code-block:: none
 
     $ http --headers get http://snapshot.debian.org/archive/debian/20120102T220511Z/pool/main/b/bash/
     HTTP/1.1 301 Moved Permanently
@@ -127,6 +128,25 @@ archives. Let's request for a date *(January 02, 2012 22:05:11) 20120102T220511Z
 
 Notice that we get back a *301* code that stands for redirection. We
 then get redirected to *http://snapshot.debian.org/archive/debian/20120102T214803Z/pool/main/b/bash/*.
+
+**Code 302 Found**
+
+Indicates resource resides temporarily under a different URI (`10.3.3 302 Found <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.3>`_).
+
+.. code-block:: none
+
+    $ http get amits-notes.readthedocs.org
+      HTTP/1.1 302 FOUND
+      Connection: keep-alive
+      Content-Language: en
+      Content-Length: 0
+      Content-Type: text/html; charset=utf-8
+      Date: Tue, 14 Oct 2014 18:37:30 GMT
+      Location: http://amits-notes.readthedocs.org/en/latest/
+      Server: nginx/1.4.6 (Ubuntu)
+      Vary: Accept-Language, Cookie
+      X-Deity: chimera-lts
+      X-Fallback: True
 
 Methods
 -------
@@ -253,7 +273,7 @@ From: `Google Browser Security Handbook, Part 2 <https://code.google.com/p/brows
    system (proxy) maintain local copy of some of the data.
 
 #. The HTTP/1.0 spec did define some headers to handle caching but it
-   did no provide any specific guidance.
+   did not provide any specific guidance.
 
    * *Expires*: This is a response header that allows server to declare
      an expiration date. When this date is passed, browsers must
@@ -292,7 +312,7 @@ From: `Google Browser Security Handbook, Part 2 <https://code.google.com/p/brows
    * Only 200 (*OK*), 203 (*Non-Authoritative*), 206 (*Partial
      Content*), 300 (*Multple Choices*), and 301 (*Redirection*)
      responses are cacheable, and only if the method is not POST, PUT,
-     DELETE, or TRACE.`
+     DELETE, or TRACE.
 
    * *Cache-Control* header introduced that provides a fine-grained
      control over caching strategies.
@@ -439,13 +459,11 @@ A basic digest authentication session goes as follows:
     User-Agent: http_client/0.1
     Accept-Encoding: gzip, deflate
     Accept: */*
-    Authorization: Digest username="amit", realm="Access Restricted",
-    nonce="2a27b9b6540a6cd4", uri="/files/",
-    response="421974c0c2805413b0d4187b9b143ecb", algorithm="MD5",
-    qop="auth", nc=00000001, cnonce="e08190d5"
+    Authorization: Digest username="amit", realm="Access Restricted", nonce="2a27b9b6540a6cd4", uri="/files/",
+    response="421974c0c2805413b0d4187b9b143ecb", algorithm="MD5", qop="auth", nc=00000001, cnonce="e08190d5"
 
     S:
-    .HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
     Server: nginx/1.6.1
     Date: Sat, 06 Sep 2014 02:09:24 GMT
     Content-Type: text/html
@@ -511,7 +529,7 @@ are the most common method used by web servers to know if the user is
 still logged in or not. The browser keeps sending back the same cookie
 to the server in every request.
 
-Browsert uses **Set-Cookie** header to ask client to store the cookie.
+Browser uses **Set-Cookie** header to ask client to store the cookie.
 The client uses **Cookie** header to send back the cookie to the server
 so the server knows which client it is talking to.
 
@@ -531,8 +549,8 @@ a URI to be used for check-out when the client is ready to purchase.*
 
 Cookies have certain rules and attributes:
 
-#. Name/value pair can't contain spaces or *;* *=*. Usually only ASCII
-   characters. The *;* is uses as a delimiter.
+#. Name/value pair can't contain spaces or `; =`. Usually only ASCII
+   characters. The `;` is used as a delimiter.
 
 #. The *Secure* attribute means this cookie is only used in encrypted
    communications.
