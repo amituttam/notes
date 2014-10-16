@@ -105,6 +105,74 @@ Notes from: `Wikipedia - Query string <http://en.wikipedia.org/wiki/Query_string
          / \ /                        \
          urn:example:animal:ferret:nose
 
+Chunked Transfer Encoding
+-------------------------
+
+#. New feature of HTTP/1.1.
+
+#. According to RFC 2616: *The chunked encoding modifies the body of a
+   message in order to transfer it as a series of chunks, each with its
+   own size indicator.*
+
+#. Used to transfer dynamically produced content more efficiently.
+
+#. Uses *Transfer-Encoding* header instead of *Content-Length* header.
+   Since there is no content length header, server can start sending
+   response as it gets content.
+
+#. Size of each chunk is sent right before chunk so receiver knows when
+   it has completed receiving chunks.
+
+#. Data transfer is terminated by chunk of length 0.
+
+#. Advantages, for example, is when response starts sending HTML page to
+   browser (start with *<head>*, which includes external scripts
+   location), so browser can start downloading this scripts in parallel.
+
+#. Sometimes you want to upload data but don't know the length of data
+   yet. A good use of this feature would be performing a database dump,
+   piping the output to gzip, and then piping the gzip file directly to
+   Cloud Files without writing the data to disk to compute the file
+   size.
+
+#. Example is below. Note that the first chunk has size **0x45ea** which
+   is **17898 bytes**. Then last chunk is **0** length.
+
+.. code-block:: none
+
+    C: GET / HTTP/1.1
+    Host: www.google.com
+    Accept: */*
+    Accept-Encoding: gzip, deflate
+    User-Agent: HTTPie/0.8.0
+
+    S: HTTP/1.1 200 OK
+    Date: Thu, 16 Oct 2014 04:16:25 GMT
+    Expires: -1
+    Cache-Control: private, max-age=0
+    Content-Type: text/html; charset=ISO-8859-1
+    Set-Cookie:
+    PREF=ID=26f17b4e26a810fd:FF=0:TM=1413432985:LM=1413432985:S=ZtumMxEG9KJAGJDr;
+    expires=Sat, 15-Oct-2016 04:16:25 GMT; path=/; domain=.google.com
+    Set-Cookie: NID=67=PW5SAvG5XSS2ptSNeN6WfK11dy7qJxM3MM7sRvn_M3CPp6zdr_QihMyA66yTEt47n1PZyGHvIVv_9ecJW2-1LCwliBR1jzxj6F5fXDltgRWwbaTB9a7AFNHHw-qQ_V_g;
+    expires=Fri, 17-Apr-2015 04:16:25 GMT; path=/; domain=.google.com; HttpOnly
+    P3P: CP="This is not a P3P policy! See
+    http://www.google.com/support/accounts/bin/answer.py?hl=en&answer=151657
+    for more info."
+    Server: gws
+    X-XSS-Protection: 1; mode=block
+    X-Frame-Options: SAMEORIGIN
+    Alternate-Protocol: 80:quic,p=0.01
+    Transfer-Encoding: chunked
+
+    45ea
+    <!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" ...
+
+    ...
+    </script></div></body></html>
+    0
+
+
 Codes
 -----
 
