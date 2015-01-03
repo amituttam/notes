@@ -1,6 +1,8 @@
 Cheatsheet
 ==========
 
+.. contents:: :depth: 3
+
 Mounting E01 Images
 -------------------
 

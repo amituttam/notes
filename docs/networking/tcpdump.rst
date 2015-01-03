@@ -1,6 +1,8 @@
 tcpdump
 =======
 
+.. contents:: :depth: 3
+
 Network packet capture tool in the CLI. `tcpdump` is extremely useful
 for quick debugging of network issues. Use the `pcap-filter` manpage for
 the filter syntax reference.
