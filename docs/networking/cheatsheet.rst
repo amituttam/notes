@@ -25,7 +25,7 @@ First to get the list of open ports used by *cupsd*, use *netstat*:
 
 .. code-block::  none
 
-    $ sudo netstat -lntu | grep cupsd
+    $ sudo netstat -lntup | grep cupsd
 
     tcp        0      0 0.0.0.0:631        0.0.0.0:*  LISTEN      512/cupsd 
     tcp6       0      0 :::631             :::*       LISTEN      512/cupsd
