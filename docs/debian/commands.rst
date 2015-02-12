@@ -43,3 +43,17 @@ Do the following to create the symlink:
 .. code-block:: bash
 
     $ sudo ln -s /usr/src/linux-headers-$(uname -r)/ /lib/modules/$(uname -r)/build
+
+No configure script, only configure.ac
+--------------------------------------
+
+Need to run the following set of commands to build a working configure script from a configure.ac:
+
+.. code-block:: bash
+
+    $ libtoolize --force
+    $ aclocal
+    $ autoheader
+    $ automake --force-missing --add-missing
+    $ autoconf
+    $ ./configure --prefix=/usr
