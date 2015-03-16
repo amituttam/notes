@@ -40,6 +40,21 @@ Mounting E01 Images
     # or for ntfs
     # mount -t ntfs-3g -o ro,nodev,noexec,show_sys_files,loop,offset=1048576 /mnt/ewf/ewf1 /mnt/usb
 
+Mounting ISO9660
+----------------
+
+1. Install *fuseiso9660*. Somehow, the following does not work:
+
+.. code-block:: none
+
+    # mount -t iso9660 -o loop test.iso /mnt/loop
+    
+2. Mount the disk image:
+
+.. code-block:: none
+
+    # fuseiso9660 ~/Downloads/BarracudaLP-ALL-CC35.iso /mnt/loop
+
 Setting HPA
 -----------
 
