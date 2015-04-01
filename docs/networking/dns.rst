@@ -437,3 +437,19 @@ DNS Security
 
    * *NSEC3PARAM*: Authoritative servers uses this which *NSEC3* records
      to use in responses.
+
+Examples
+--------
+
+Query All Records using dig
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: none
+
+   $ dig +nocmd com.google any +multiline +noall +answer
+   
+Or
+
+.. code-block:: none
+
+   $ dig com.google any
