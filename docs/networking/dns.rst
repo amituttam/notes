@@ -37,7 +37,7 @@ left:
    trailing dot, which signifies the name's last component is the root
    domain.
 
-#. The top level domain (TLD)
+#. The top level domain (TLD) (List of top level domains: http://www.iana.org/domains/root/db)
 
 #. The second level domain
 
