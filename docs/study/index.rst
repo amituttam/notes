@@ -7,3 +7,4 @@ Study
   gio-app-engine
   gio-high-replication
   the-art-of-unix-programming
+  python
