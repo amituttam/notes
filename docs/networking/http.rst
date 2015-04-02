@@ -751,6 +751,16 @@ and sends a certificate to the server. Thus, the password is never sent.
 
 The `Red Hat Portal <https://access.redhat.com/documentation/en-US/Red_Hat_Certificate_System/8.0/html/Deployment_Guide/Introduction_to_Public_Key_Cryptography-Certificates_and_Authentication.html>`_ discusses this in great detail.
 
+
+HTTPS
+-----
+
+#. It's HTTP over TLS or HTTP over SSL (*https://* instead of *http://*).
+#. Main motivation is to prevent wiretapping/man in the middle attacks.
+
+TLS/SSL
+^^^^^^^
+
 nginx `engineX`
 ---------------
 
