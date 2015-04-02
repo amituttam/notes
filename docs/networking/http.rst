@@ -37,7 +37,7 @@ Basic format for requests/responses:
 
 .. code-block:: html
 
-    Request-Line = Method SP URI SP HTTP-Version CRLF
+    Request-Line = Method SP(Space) URI SP(Space) HTTP-Version CRLF
     Method = "OPTIONS"
            | "HEAD"  
            | "GET"  
@@ -59,7 +59,7 @@ Basic format for requests/responses:
 
 .. code-block:: html
 
-    Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
+    Status-Line = HTTP-Version SP(Space) Status-Code SP(Space) Reason-Phrase CRLF
 
 .. code-block:: html
 
