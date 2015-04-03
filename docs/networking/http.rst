@@ -785,6 +785,29 @@ TLS/SSL
 #. TLS (transport layer security) often refers to the new variant which allows to start with an
    unencrypted traditional protocol and then issuing a command (usually STARTTLS) to initialize
    the handshake.
+#. Differences between SSL and TLS in the protocol level:
+
+   * In the ClientHello message (first message sent by the client, to
+     initiate the handshake), the version is {3,0} for SSLv3, {3,1} for
+     TLSv1.0 and {3,2} for TLSv1.1.
+
+   * The ClientKeyExchange differs.
+
+   * The MAC/HMAC differs (TLS uses HMAC whereas SSL uses an earlier
+     version of HMAC).
+
+   * The key derivation differs.
+
+   * The client can send application data can be sent straight after
+     sending the SSL/TLS Finished message in SSLv3. In TLSv1, it must
+     wait for the server's Finished message.
+
+   * The list of cipher suites differ (and some of them have been
+     renamed from SSL_* to TLS_*, keeping the same id number).
+
+   * There are also differences regarding the new re-negotiation
+     extension.
+
 #. Use port 443 by default.
 #. TLS, which uses long-term public and secret keys to exchange a short term session key to encrypt the data
    flow between client and server.
