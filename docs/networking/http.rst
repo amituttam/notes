@@ -755,11 +755,84 @@ The `Red Hat Portal <https://access.redhat.com/documentation/en-US/Red_Hat_Certi
 HTTPS
 -----
 
-#. It's HTTP over TLS or HTTP over SSL (*https://* instead of *http://*).
+#. It's HTTP over TLS or HTTP over SSL (*https://* instead of *http://*). Thus, uses an added
+   encryption layer (above Transport Layer, before Application Layer) of SSL/TLS to protect traffic.
 #. Main motivation is to prevent wiretapping/man in the middle attacks.
+#. HTTPS provides authentication of the website and associated web server that one is communicating with.
+#. Provides a bidirectional encryption of communications between a client and server.
+#. URL, query parameters, headers, are protected. However, it only protects HTTP layer. Thus, can infer
+   host addresses, IP address, and sometimes port number of the webserver (since TCP layer is not encrypted).
+   Can get data transferred and duration of TCP connection but not content.
+
+Trusting a Web Site
+^^^^^^^^^^^^^^^^^^^
+
+#. Web browsers know how to trust HTTPS websites based on certificate authorities that come pre-installed in their software.
+#. Certificate authorities, such as Comodo and GlobalSign, are in this way being trusted by web browser creators to provide valid certificates.
+#. Must use a browser that correctly implements HTTPS with correct pre-installed certificates.
+#. User trusts CA to "vouch" for website they issued certificate to.
+#. The user trusts that the protocol's encryption layer (TLS/SSL) is sufficiently secure against eavesdroppers.
 
 TLS/SSL
 ^^^^^^^
+
+#. TLS is the new name for SSL.
+#. SSL got to version 3.0 and TLS is "SSL 3.1".
+#. Current version of TLS is 1.2.
+#. SSL (secure socket layer) often refers to the old protocol variant which starts with
+   the handshake right away and therefore requires another port for the encrypted protocol such
+   as 443 instead of 80.
+#. TLS (transport layer security) often refers to the new variant which allows to start with an
+   unencrypted traditional protocol and then issuing a command (usually STARTTLS) to initialize
+   the handshake.
+#. Differences between SSL and TLS in the protocol level:
+
+   * In the ClientHello message (first message sent by the client, to
+     initiate the handshake), the version is {3,0} for SSLv3, {3,1} for
+     TLSv1.0 and {3,2} for TLSv1.1.
+
+   * The ClientKeyExchange differs.
+
+   * The MAC/HMAC differs (TLS uses HMAC whereas SSL uses an earlier
+     version of HMAC).
+
+   * The key derivation differs.
+
+   * The client can send application data can be sent straight after
+     sending the SSL/TLS Finished message in SSLv3. In TLSv1, it must
+     wait for the server's Finished message.
+
+   * The list of cipher suites differ (and some of them have been
+     renamed from SSL_* to TLS_*, keeping the same id number).
+
+   * There are also differences regarding the new re-negotiation
+     extension.
+
+#. Use port 443 by default.
+#. TLS, which uses long-term public and secret keys to exchange a short term session key to encrypt the data
+   flow between client and server.
+#. X.509 certificates are used to guarantee one is talking to the partner with whom one wants to talk.
+#. Need to ensure scripts are loaded over HTTPS as well and not HTTP.
+#. In case of compromised secret (private) key, certificate can be revoked.
+#. Use Perfect Forward Secrecy (PFS) so that short term session key can't be derived from long term assymetric
+   secret key.
+
+Server Setup
+^^^^^^^^^^^^
+
+#. To prepare a web server to accept HTTPS connections, the administrator must create a public key
+   certificate for the web server.
+#. This certificate must be signed by a trusted certificate authority for the web browser to
+   accept it without warning.
+#. Web browsers are generally distributed with a list of signing certificates of major certificate
+   authorities so that they can verify certificates signed by them.
+
+Other Uses
+^^^^^^^^^^
+
+#. The system can also be used for client authentication in order to limit access to a web server
+   to authorized users. To do this, the site administrator typically creates a certificate for each
+   user, a certificate that is loaded into his/her browser.
 
 nginx `engineX`
 ---------------
