@@ -8,3 +8,4 @@ Study
   gio-high-replication
   the-art-of-unix-programming
   python
+  project-management
