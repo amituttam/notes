@@ -6,6 +6,41 @@ Python
 Common Questions
 ----------------
 
+Difference between *class A(object):* and *class A:*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Subclassing *object* yields a new-style class (in Python 3, *class A:*
+defaults to new style). Some differences:
+
+#. Method Resolution Order (MRO) defined by *__mro__* attribute of
+   class, defines how inheritance hierarchies are walked. Before, it was
+   depth first. Now, it is more sane and is based on *__mro__*.
+
+#. The *__new__* constructor is added. This allows class to act as
+   factory method, rather than return new instance of class. Useful for
+   returning particular subclasses, or reusing immutable objects rather
+   than creating new ones without having to change the creation
+   interface.
+
+#. Descriptors. These are the feature behind such things as properties,
+   classmethods, staticmethods etc. Essentially, they provide a way to
+   control what happens when you access or set a particular attribute on
+   a (new style) class.
+
+.. code-block:: python
+
+    class D(object):
+        pass
+
+    class E:
+        pass
+
+    dir(D)
+    # ['__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__' , '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__wea kref__']
+
+    dir(E)
+    # ['__doc__', '__module__']
+
 How are arguments passed - by reference or by value?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -131,3 +166,31 @@ function.
 
 Common Mistakes
 ---------------
+
+Misusing expressions as defaults for function arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+    def foo(bar=[]):
+        bar.append("paz")
+        return bar
+
+#. Expect to return *paz* everytime *foo()* is called. But this is not
+   the case.
+
+#. After calling *foo()* three times, you will get *["baz", "baz", "baz"]*
+
+#. This is because, the the default value for a function argument is
+   only evaluated once, at the time that the function is defined.
+
+#. To get around it:
+
+.. code-block:: python
+
+    def foo(bar=None):
+        if bar == None:
+            bar = []
+        bar.append("paz")
+        return bar
+
