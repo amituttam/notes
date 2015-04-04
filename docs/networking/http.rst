@@ -767,8 +767,11 @@ HTTPS
 Trusting a Web Site
 ^^^^^^^^^^^^^^^^^^^
 
-#. Web browsers know how to trust HTTPS websites based on certificate authorities that come pre-installed in their software.
-#. Certificate authorities, such as Comodo and GlobalSign, are in this way being trusted by web browser creators to provide valid certificates.
+#. Web browsers know how to trust HTTPS websites based on certificate
+   authorities that come pre-installed in their software.
+#. Certificate authorities, such as Comodo and GlobalSign, are in this
+   way being trusted by web browser creators to provide valid
+   certificates.
 #. Must use a browser that correctly implements HTTPS with correct pre-installed certificates.
 #. User trusts CA to "vouch" for website they issued certificate to.
 #. The user trusts that the protocol's encryption layer (TLS/SSL) is sufficiently secure against eavesdroppers.
@@ -776,15 +779,40 @@ Trusting a Web Site
 TLS/SSL
 ^^^^^^^
 
+#. Uses assymetric cryptography:
+
+   * Basically known as public key cryptography.
+
+   * Requires two keys. A private/secret and a public key.
+
+   * Public key is used to encrypt plain text or verify a digital
+     signature. Private key is used to decrypt the plain text or create
+     a digital signature.
+
+#. The assymetric key is used for authentication and encrypting the
+   channel. Then, a symmetric session key is exchanged.
+
+#. The session key is used to encrypt data flowing between the parties.
+   Important property is *forward secrecy*. This means that the
+   short-term session key cannot be derived from long term assymetric
+   secret key.
+
+#. In OSI model equivalences, TLS/SSL is initialized at layer 5 (session
+   layer) and works at layer 6 (the presentation layer). he session
+   layer has a handshake using an asymmetric cipher in order to
+   establish cipher settings and a shared key for that session; then the
+   presentation layer encrypts the rest of the communication using a
+   symmetric cipher and that session key.
+
 #. TLS is the new name for SSL.
 #. SSL got to version 3.0 and TLS is "SSL 3.1".
 #. Current version of TLS is 1.2.
-#. SSL (secure socket layer) often refers to the old protocol variant which starts with
-   the handshake right away and therefore requires another port for the encrypted protocol such
-   as 443 instead of 80.
-#. TLS (transport layer security) often refers to the new variant which allows to start with an
-   unencrypted traditional protocol and then issuing a command (usually STARTTLS) to initialize
-   the handshake.
+#. SSL (secure socket layer) often refers to the old protocol variant
+   which starts with the handshake right away and therefore requires
+   another port for the encrypted protocol such as 443 instead of 80.
+#. TLS (transport layer security) often refers to the new variant which
+   allows to start with an unencrypted traditional protocol and then
+   issuing a command (usually STARTTLS) to initialize the handshake.
 #. Differences between SSL and TLS in the protocol level:
 
    * In the ClientHello message (first message sent by the client, to
@@ -799,7 +827,7 @@ TLS/SSL
    * The key derivation differs.
 
    * The client can send application data can be sent straight after
-     sending the SSL/TLS Finished message in SSLv3. In TLSv1, it must
+     ending the SSL/TLS Finished message in SSLv3. In TLSv1, it must
      wait for the server's Finished message.
 
    * The list of cipher suites differ (and some of them have been
@@ -809,13 +837,60 @@ TLS/SSL
      extension.
 
 #. Use port 443 by default.
-#. TLS, which uses long-term public and secret keys to exchange a short term session key to encrypt the data
+#. TLS, which uses long-term public and secret keys to exchange a short
+   term session key to encrypt the data
    flow between client and server.
-#. X.509 certificates are used to guarantee one is talking to the partner with whom one wants to talk.
+#. X.509 certificates are used to guarantee one is talking to the
+   partner with whom one wants to talk.
 #. Need to ensure scripts are loaded over HTTPS as well and not HTTP.
 #. In case of compromised secret (private) key, certificate can be revoked.
-#. Use Perfect Forward Secrecy (PFS) so that short term session key can't be derived from long term assymetric
-   secret key.
+#. Use Perfect Forward Secrecy (PFS) so that short term session key
+   can't be derived from long term assymetric secret key.
+
+Handshake
+~~~~~~~~~
+
+.. code-block:: none
+
+      Client                                               Server
+
+      ClientHello                  -------->
+                                                      ServerHello
+                                                     Certificate*
+                                               ServerKeyExchange*
+                                              CertificateRequest*
+                                   <--------      ServerHelloDone
+      Certificate*
+      ClientKeyExchange
+      CertificateVerify*
+      [ChangeCipherSpec]
+      Finished                     -------->
+                                               [ChangeCipherSpec]
+                                   <--------             Finished
+      Application Data             <------->     Application Data
+
+#. Exchange hello messages to agree on algorithms, exchange random
+   values, check for resume.
+
+   * The ClientHello and ServerHello establish the following attributes:
+     Protocol Version, Session ID, Cipher Suite, and Compression Method.
+     Additionally, two random values are generated and exchanged: ClientHello.random
+     and ServerHello.random.
+
+#. Exchange necessary crypto parameters for client/server to agree on
+   premaster secret.
+
+#. Exchange certs and crypto information to allow client/server to
+   authenticate.
+
+#. Generate a master secret from the premaster secret and exchanged
+   random values.
+
+#. Provide security parameters to the record layer.
+
+#. Allow the client and server to verify that their peer has
+   calculated the same security parameters and that the handshake
+   occurred without tampering by an attacker.
 
 Server Setup
 ^^^^^^^^^^^^
