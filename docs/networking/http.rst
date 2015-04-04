@@ -798,7 +798,7 @@ TLS/SSL
    secret key.
 
 #. In OSI model equivalences, TLS/SSL is initialized at layer 5 (session
-   layer) and works at layer 6 (the presentation layer). he session
+   layer) and works at layer 6 (the presentation layer). The session
    layer has a handshake using an asymmetric cipher in order to
    establish cipher settings and a shared key for that session; then the
    presentation layer encrypts the rest of the communication using a
