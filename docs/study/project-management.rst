@@ -1,7 +1,7 @@
 Project Management
 ==================
 
-.. contents:: :depth: 3
+.. contents:: :depth: 4
 
 Agile
 -----
@@ -388,6 +388,10 @@ XP (Extreme Programming)
 Scrum
 ~~~~~
 
+*Scrum (n): A framework within which people can address complex adaptive
+problems, while productively and creatively delivering products of the
+highest possible value.*
+
 #. Scrum also developed in the 80's and 90's primarily with OO
    development circles as a highly iterative development methodology.
    It's most well known developers were Ken Schwaber, Jeff Sutherland,
@@ -400,6 +404,127 @@ Scrum
    combine its project management approach with extreme programming's
    engineering practices.** (XP's management practices aren't really very
    different.)
+
+#. Asserts that knowledge comes from experience and making decisions
+   based on what is known. Scrum employs an iterative, incremental
+   approach to optimize predictability and control risk. 
+
+#. Scrum Events:
+
+   * All events are timeboxed for duration.
+
+   * A formal opportunity to inspect and adapt something.
+
+   * Sprint is heart of scrum. Timeboxed one month or less (if *sprint
+     goal* is accomplished early).
+
+       * Sprint Planning
+
+           * Timeboxed to a max of eight hours. Answers what can be
+             delivered at the end of sprint? And how this work will be
+             achieved.
+
+           * Dev team discusses forecasts of functionality that will be
+             implemented. Product Owner discusses objective of sprint.
+
+           * Performance of past sprints is also reviewed. Number of
+             items selected from backlog is solely up to dev team.
+
+           * Sprint Goal is decided here. It is basically an objective
+             to work towards for that sprint. e.g. "Has a basic UI for
+             users to work with", "Can pass packets and has networking
+             functionality"
+
+           * Sprint Backlog is subset of Product Backlog. This includes
+             more detailed planning.
+           
+           * By the end of the Sprint Planning, the Development Team
+             should be able to explain to the Product Owner and Scrum
+             Master how it intends to work as a self-organizing team to
+             accomplish the Sprint Goal and create the anticipated
+             Increment.
+
+       * Daily Scrum
+
+           * 15-minute timeboxed event to plan the next 24 hours that
+             only dev team can participate in.
+
+           * Members explain: What did I do to help Dev team meet Sprint
+             Goal? What will I do today to help Dev team meet the Sprint
+             Goal? Do I see any obstacles that prevents me from
+             a
+             accomplishing that goal?
+
+       * Sprint Review
+
+           * Timeboxed to 4 hours and held at end of Sprint to inspect
+             *Increment* and adapt Product Backlog if needed.
+
+           * Includes Scrum Master, Product Owner, Dev Team and other
+             key stake holders.
+
+           * Demonstration of work happens and discussion of obstacles,
+             product backlog, etc.
+
+           * Review of market, how it has changed, most business value
+             on what to do next.
+
+           * Review timeline and budget as well.
+
+           * Backlog can be re-prioritized.
+
+       * Sprint Retrospective
+
+           * Opportunity for entire Scrum Team to inspect itself and
+             create a plan for improvements during next sprint.
+
+           * Occurs after sprint review and before next sprint planning.
+             Time boxed to three hours.
+
+   * Sprint maybe cancelled only by Product Owner but are very uncommong
+     and not recommended.
+
+#. The Scrum Team consists of a Product Owner, the Development Team, and
+   a Scrum Master.
+
+#. Scrum Teams deliver products iteratively and incrementally,
+   maximizing opportunities for feedback.
+
+#. *Product Owner* is sole person managing Product backlog.
+
+#. *Development Teams* are structured and empowered by the organization
+   to organize and manage their own work. The resulting synergy
+   optimizes the Development Team’s overall efficiency and
+   effectiveness. Every member is known as a *Developer*.
+   Accountability is to whole team. Usually between *3-9* members.
+
+#. The *Scrum Master* is responsible for ensuring Scrum is understood and
+   enacted. Scrum Masters do this by ensuring that the Scrum Team
+   adheres to Scrum theory, practices, and rules.
+
+   * Finding techniques for effective Product Backlog management
+     (helping Product Owner).
+
+   * Acts as a coack to development team. Removes impediments to the
+     progress of Dev Team.
+
+   * Helping employees and stakeholders understand and enact Scrum and
+     empirical product development.
+
+#. A Product Backlog is never complete. The earliest development of it
+   only lays out the initially known and best-understood requirements.
+   The Product Backlog evolves as the product and the environment in
+   which it will be used evolves. The Product Backlog is dynamic; it
+   constantly changes to identify what the product needs to be
+   appropriate, competitive, and useful. As long as a product exists,
+   its Product Backlog also exists.
+
+#. Product Backlog can span multiple Scrum Teams and thus can apply
+   grouping techniques to the backlog.
+
+#. The Sprint Backlog is a highly visible, real-time picture of the work
+   that the Development Team plans to accomplish during the Sprint, and
+   it belongs solely to the Development Team.
 
 Crystal
 ~~~~~~~
