@@ -492,3 +492,21 @@ Notes taken from: http://www.mountaingoatsoftware.com/agile/user-stories
    idea is, the larger the story is, the more uncertainty there is
    around it and the estimate is less accurate. Thus, total number of
    points give a number on complexity of project.
+
+   * 0, 1 means user story doesn't take anytime at all
+   * Bigger than 13 means very complex and probably needs to be broken
+     up.
+
+Burndown Charts
+^^^^^^^^^^^^^^^
+
+#. A burn down chart is a graphical representation of work left to do
+   versus time.
+
+#. The outstanding work (or backlog) is often on the vertical axis, with
+   time along the horizontal.
+
+#. It is useful for predicting when all of the work will be completed.
+
+
+.. image:: images/burndown-chart.png
