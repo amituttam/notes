@@ -461,11 +461,9 @@ Notes taken from: http://www.mountaingoatsoftware.com/agile/user-stories
    is split into smaller user stories. The above epic can be split into
    dozens (or hundreds) of user stories:
 
-       * *As a power user, I can specify files or folders to backup based
-          on file size, date created and date modified.*
+       *As a power user, I can specify files or folders to backup based on file size, date created and date modified.*
 
-       * *As a user, I can indicate folders not to backup so that my
-          backup drive isn't filled up with things I don't need saved.*
+       *As a user, I can indicate folders not to backup so that my backup drive isn't filled up with things I don't need saved.*
 
 #. Note that details can be added to user stories. These can be
    accomplished by splitting user stories into smaller user stories. Or
