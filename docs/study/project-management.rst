@@ -557,8 +557,8 @@ Should you go agile?
 #. So where should you not use an agile method? I think it primarily
    comes down to the people.
 
-Management
-----------
+Others
+------
 
 User Stories
 ^^^^^^^^^^^^
@@ -633,5 +633,95 @@ Burndown Charts
 
 #. It is useful for predicting when all of the work will be completed.
 
-
 .. image:: images/burndown-chart.png
+
+
+Agile Fluency
+^^^^^^^^^^^^^
+
+Reference: http://martinfowler.com/articles/agileFluency.html
+
+This diagram explains stages agile teams go through as they gain more
+experience. This shows successful team progression. Note that *fluency*
+here means how a team develops software when it's under pressure.
+
+.. image:: images/agile-fluency-path.png
+
+Most teams are at one-star level. Number of teams with more stars are
+fewer as there are factors such as organizational culture, technical
+debt of code, etc.
+
+Fluency is more about *habit* than skills and thus requires a lot of
+practice.
+
+It's best to choose the level of fluency you want to achieve and to
+practice everything needed for that level from the beginning.
+
+In other words, if your goal is to have a three-star team, use a
+three-star approach from the start. Although your team will still
+progress one level at a time, practicing all the techniques together
+will allow them to advance more quickly.
+
+Important for organization to support team star goals and for team
+members to stick together.
+
+#. Scrum is frequently used by one-star teams as their core goal/metric
+   is business value of customer/stakeholders. The focus is on creating
+   value. The idea is organization can realize its investment quickly
+   (2-6 months) and have greater insight into team progress.
+
+#. Two-star teams deliver on market cadence (shipping as often as market
+   will accept it). Usually use XP combined with Scrum project
+   management. Includes continuous integration, test drive development,
+   test driven development, pair programming, and collective ownership.
+
+    * Consistently and predictably deliver value.
+
+    * Includes metrics used by one-star team to report business value.
+      But core metric is to deliver low-defect product and ability to
+      ship on market cadence.
+
+    * Takes significant investment in time as team needs a lot of skill
+      and practice to consistently deliver these kinds of products.
+
+#. Three-star teams deliver the most value possible for your investment.
+   They understand what the market wants, what your business needs, and
+   how to meet those needs.
+
+   * However, Lean Startup is an example of a method that operates at
+     the three-star level. It's most applicable to new product
+     development. The ideas from Lean Software Development (no relation
+     to Lean Startup) are also useful. Agile chartering, embedded
+     product management teams, customer discovery, and adaptive planning
+     are all examples of techniques used by three-star teams.
+
+   * More formal business value reports are presented. There is a mutual
+     trust between team and organization. Need to incorporate business
+     experts full time in the team.
+
+   * Takes several years to develop because it takes time to develop
+     this level of trust between organization and team.
+
+#. Four-star teams contribute to enterprise-wide success. Team members
+   understand organizational priorities and business direction.
+   Four-star teams will sacrifice their own needs to support the needs
+   of a product more critical to business success. They work with other
+   teams and with managers to optimize the overall value stream.
+
+   * The teams we know that are striving for, and in some cases reaching,
+     four-star fluency are at the “bleeding edge” of Agile practice.
+     They adapt ideas from advanced management theories and innovative
+     product development methods. Techniques include Agile portfolio
+     management, systems thinking, value stream analysis, whole system
+     planning, intact teams, open book management, and radical
+     self-organization.
+
+   * The core metric for four-star teams is whether the team shows
+     understanding of the overall system and reports how its actions
+     affect the enterprise.
+
+   * To date, we've most often seen four-star fluency in single-team
+     startups, where it's not much different from three-star fluency. It
+     seems to be easiest to approach four-star fluency in organizations
+     where trust is high, communication overhead is low, and business
+     information is widely shared.
