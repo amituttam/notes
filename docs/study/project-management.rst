@@ -725,3 +725,41 @@ members to stick together.
      seems to be easiest to approach four-star fluency in organizations
      where trust is high, communication overhead is low, and business
      information is widely shared.
+
+Managing Deadlines
+^^^^^^^^^^^^^^^^^^
+
+Dealing with missed deadlines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#. As a project manager, this is where you earn your value. You have the
+   opportunity to turn the project around.
+
+#. Can perform Monte Carlo simulation to see the impact of business
+   value if project is killed or if it is continued but delayed.
+
+#. Identify the problems at this point and possibly *Reboot* project.
+
+#. Also, it should never get to this point. Idea with agile is to
+   constantly adjust scope if budget and deadline is fixed. Of course,
+   this is with customer input.
+
+Estimates/Deadlines
+~~~~~~~~~~~~~~~~~~~
+
+#. *Estimates* come from team and *Deadlines* come from stakeholders.
+
+#. Sometimes deadlines can't be pushed, other factors are involved
+   (media promotions, legal regulations, etc.).
+
+#. A great PM is great not because they achieve project objectives all
+   the time but because they communicate bad news early and often so
+   that project owners can make decisions before they are surprised.
+
+Adding People
+~~~~~~~~~~~~~
+
+#. Adding the right people can speed the project up, especially if they
+   have specific domain expertise that is missing or weak in the
+   original team,and they are being brought in to support the team
+   rather than taking over and destroying morale.
