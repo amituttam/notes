@@ -7,6 +7,7 @@ Networking
   http
   dns
   firewall
+  ip
   tcpdump
   cheatsheet
   troubleshooting
