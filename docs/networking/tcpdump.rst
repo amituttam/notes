@@ -31,7 +31,8 @@ Capturing ARP Traffic
 ^^^^^^^^^^^^^^^^^^^^^
 
 When using tcpdump to capture ARP, make sure to dump the hex output (*-X*)
-and also decode ethernet header using (*-e*).
+and also decode ethernet header using (*-e*). **Note: Use *-XX* to also
+show ethernet header dump**.
 
 .. code-block:: bash
 
