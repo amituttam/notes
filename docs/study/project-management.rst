@@ -27,7 +27,7 @@ Notes from: http://martinfowler.com/articles/newMethodology.html
 Predictive vs Adaptive
 ^^^^^^^^^^^^^^^^^^^^^^
 
-#. The usual inspiration for methodologies is engineering disciplines
+#. The usual inspiration for methodologies comes from engineering disciplines
    such as civil or mechanical engineering. Such disciplines put a lot
    of emphasis on planning before you build.
 
