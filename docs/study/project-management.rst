@@ -8,7 +8,7 @@ Agile
 
 Notes from: http://martinfowler.com/articles/newMethodology.html
 
-#. Agile is a ompromise between no process and too much process,
+#. Agile is a compromise between no process and too much process,
    providing just enough process to gain a reasonable payoff.
 
 #. *Agile methods are adaptive rather than predictive.* Engineering
