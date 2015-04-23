@@ -111,6 +111,13 @@ keepalive probe is a packet with no data and ACK flag turned on:
 
     $ sudo tcpdump -vv "tcp[tcpflags] == tcp-ack and less 1"
 
+Capture Outgoing SSH Traffic
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sh
+
+    $ sudo tcpdump -nn src 192.168.1.116 and tcp port 22
+
 Get Time Delta Between Request/Response
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
