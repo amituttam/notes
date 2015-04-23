@@ -57,3 +57,32 @@ Need to run the following set of commands to build a working configure script fr
     $ automake --force-missing --add-missing
     $ autoconf
     $ ./configure --prefix=/usr
+
+Transferring files over netcat
+------------------------------
+
+Sometimes this is useful when you need to transfer some files from a
+unit that has *busybox* or booted up to an *initramfs* shell.
+
+First, on PC that you would like the file to be transferred to:
+
+.. code-block:: bash
+
+    $ nc -l -p 6666 > dmesg.out
+
+You can check if port *6666* is open by running:
+
+.. code-block:: bash
+
+    $ lsof -i :6666
+    COMMAND PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
+    nc      953 amit    3u  IPv4 54834351      0t0  TCP \*:6666 (LISTEN)
+
+Then on busybox shell:
+
+.. code-block:: bash
+
+    (initramfs) ip link set dev eth0 up
+    (initramfs) ip addr add 192.168.1.123/24 dev eth0
+    (initramfs) dmesg > /tmp/dmesg
+    (initramfs) nc 192.168.1.175:6666 < /tmp/dmesg
