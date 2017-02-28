@@ -157,6 +157,6 @@ Then, run `tcpdump` with the following flags:
 
 .. code-block:: bash
 
-    $ sudo tcpdump -i wlan0 -w thermostat.pcap -e -s 0 ether host 00:d0:2d:xx:xx:xx
+    $ sudo tcpdump -I -i wlan0 -w thermostat.pcap -e -s 0 ether host 00:d0:2d:xx:xx:xx
 
 This captures all packets originating from the Honeywell thermostat for example.
