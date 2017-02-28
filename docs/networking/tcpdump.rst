@@ -141,3 +141,22 @@ previous line.
     00:00:00.008210 IP 192.168.1.170.34233 > 193.62.202.30.80: Flags [F.], seq 1140376399, ack 1460191405, win 239, options [nop,nop,TS val 22265738 ecr 74072902], length 0
     00:00:00.183523 IP 193.62.202.30.80 > 192.168.1.170.34233: Flags [F.], seq 1460191405, ack 1140376400, win 54, options [nop,nop,TS val 74072960 ecr 22265738], length 0
     00:00:00.000060 IP 192.168.1.170.34233 > 193.62.202.30.80: Flags [.], ack 1460191406, win 239, options [nop,nop,TS val 22265784 ecr 74072960], length 0
+
+Capturing WiFi Packets
+^^^^^^^^^^^^^^^^^^^^^^
+
+First, the `wlan0` interface needs to be set to monitor mode:
+
+.. code-block:: bash
+
+    $ sudo ifconfig wlan0 down
+    $ sudo iwconfig wlan0 mode Monitor
+    $ sudo ifconfig wlan0 up
+
+Then, run `tcpdump` with the following flags:
+
+.. code-block:: bash
+
+    $ sudo tcpdump -i wlan0 -w thermostat.pcap -e -s 0 ether host 00:d0:2d:xx:xx:xx
+
+This captures all packets originating from the Honeywell thermostat for example.
